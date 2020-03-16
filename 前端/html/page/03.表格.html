@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>表格</title>
+<link rel="stylesheet" type="text/css" href="../../css/hello.css" />
+		<style  type="text/css">
+			
+			.table2{
+				width: 300px;
+				margin: 0 auto;/*居中*/
+				/*边框*/
+				border: 1px solid black;
+				/*table和td边框之间默认有距离，通过border-spacing属性设置距离*/
+				border-spacing: 10px;
+				/*border-collapse可以用来设置表格的边框合并，
+				 如果设置了边框合并，则border-spacing自动失效*/
+				border-collapse:collapse
+			}
+			/*分组选择器：可以同时选中多个选择器对用的元素*/
+			.table2 td ,.table2 th{
+				border: 1px solid black;
+			}
+			/*隔行变色*/
+			.table2 tr :nth-child(even){
+				background-color: #bfa;
+			}
+			/*鼠标移入变色*/
+			tr:hover{
+				background-color: #ff0;
+			}
+		</style>
+		
+	<head/>
+
+	<body>
+		
+	<p class="lable"><span class="Keyword">表格定义：</span>
+		在HTML中使用table标签定义表格，tr表示表格中一行，有几行就有几个tr；
+		tr中庸td创建一个单元格，有几个单元格就有几个td。
+		表头可使用th，跟td作用一样，但有特殊效果（居中加粗）
+	</p>
+
+	<p class="lable"><span class="Keyword">常用属性：</span>
+	</p>
+	
+	<ul>
+		<li>colspan：横向的合并单元格</li>
+		<li>rowspan：纵向合并单元格</li>
+	</ul>
+
+
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		
+		<!--html-->
+	
+	 </xmp>
+	 
+	<p class="show">效果展示：</p>
+	
+	<table border="1" width="40%" align="center">
+		<tr>
+			<td>A1</td>
+			<td>A2</td>
+			<td>A3</td>
+			<td>A4</td>
+		</tr>
+		<tr>
+			<td>B1</td>
+			<td>B2</td>
+			<td>B3</td>
+			<td rowspan="2">B4</td>
+		</tr>
+		<tr>
+			<td>C1</td>
+			<td>C2</td>
+			<td>C3</td>
+		</tr>
+		<tr>
+			<td>C1</td>
+			<td>C2</td>
+			<td colspan="2">C3</td>
+		</tr>
+	</table>
+	
+
+
+	
+	<table class="table2">
+		<tr>
+			<th>学号</th>
+			<th>姓名</th>
+			<th>性别</th>
+			<th>住址</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>孙悟空</td>
+			<td>男</td>
+			<td >花果山</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>猪八戒</td>
+			<td>男</td>
+			<td >高老庄</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>沙和尚</td>
+			<td>男</td>
+			<td >流沙河</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>唐僧</td>
+			<td>男</td>
+			<td >女儿国</td>
+		</tr>
+	</table>
+	
+	
+		<hr />
+	<p class="lable"><span class="Keyword">长表格：</span>
+		有些清空下表格非常长，这时需要将表格分为三部分：表头、表体、表格底部；
+		在HTML中为我们提供了三个标签；这三个标签的作用就是区分表格的不同部分，
+		他们都是table的子标签。
+	</p>
+	<ul>
+		<li>thead：表头，永远显示在表格头部</li>
+		<li>tbody：表格主体，永远显示在表格中间，如果table中没有tbody标签，会默认自动加上，
+		           并将tr放到tbody中，tr不是table的子元素，而是tbody的子元素，通过table>tr无法选中行，需要通过tbody>tr</li>
+		<li>tfoot：表格底部，永远显示在表格底部</li>
+	</ul>
+
+
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		
+		<!--html-->
+	
+	 </xmp>
+	 
+	<p class="show">效果展示：</p>
+	
+	<table>
+		<thead>
+			<tr>
+				<td>日期</td>
+				<td>收入</td>
+				<td>支出</td>
+				<td>合计</td>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>合计</td>
+				<td>00</td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<tr>
+				<td>20170801</td>
+				<td>1000</td>
+				<td>200</td>
+				<td>800</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	
+	
+	
+	
+	</body>
+
+<html/>
+
+

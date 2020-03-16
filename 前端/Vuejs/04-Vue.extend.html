@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <title>全局API-Vue.extend构造器的延伸</title>
+	  <script src="./lib/vue.js"></script>
+	</head>
+		
+	<body>
+		<span>Vue.extend 返回的是一个“扩展实例构造器”,也就是预设了部分选项的Vue实例构造器。
+		经常服务于Vue.component用来生成组件，可以简单理解为当在模板中遇到该组件名称
+		作为标签的自定义元素时，会自动调用“扩展实例构造器”来生产组件实例，并挂载到自
+		定义元素上</span>
+		
+		<span>我们想象一个需求，需求是这样的，要在博客页面多处显示作者的网名，并在网名上直
+		接有链接地址。我们希望在html中只需要写一个标签，然后为其绑定，这和自定义组件很像，
+		但是他没有传递任何参数，只是个静态标签。</span>
+		
+		<author></author>
+		<p id="author"></p>
+		<script>
+			var authorExtend = Vue.extend({
+			    template:"<p><a :href='authorUrl'>{{authorName}}</a></p>",
+			    data:function(){
+			    return{
+			          authorName:'openXu',
+			          authorUrl:'https://github.com/openXu'
+			          }
+			    }
+			});
+			
+			new authorExtend().$mount('author');
+			new authorExtend().$mount('#author');
+			
+		</script>
+		
+	</body>
+</html>

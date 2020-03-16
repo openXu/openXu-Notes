@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <title>template模板</title>
+	  <script src="./lib/vue.js"></script>
+	</head>
+		
+	<body>
+		三种模板制作方式：	
+		<ul>
+			<li>直接写在Vue选项里</li>
+			<li>写在template标签里</li>
+			<li>写在script标签里</li>
+		</ul>
+		<div id="app">
+		   
+		</div>
+		<template id="demo2">
+		    <h2 style="color:red">我是template标签模板</h2>
+		</template>
+		<script type="x-template" id="demo3">
+		    <h2 style="color:red">我是script标签模板</h2>
+		</script>
+		
+	 
+		<script type="text/javascript">
+			var app=new Vue({
+				el:'#app',
+				data:{
+					
+				},
+				//这里需要注意的是模板的标识不是单引号和双引号，而是，就是Tab上面的键
+				template:`<h1 style="color:red">我是选项模板</h1>`,
+				template:'#demo2',
+				template:'#demo3'
+			})
+		</script>
+		
+	</body>
+</html>

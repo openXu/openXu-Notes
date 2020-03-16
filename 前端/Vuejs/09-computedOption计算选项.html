@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <title>propsData扩展挂载值传递</title>
+	  <script src="./lib/vue.js"></script>
+	</head>
+		
+	<body>
+		  <h1>PropsData Option Demo</h1>
+		    <hr>
+			
+			propsData在实际开发中我们使用的并不多，我们在后边会学到Vuex的应用，
+			他的作用就是在单页应用中保持状态和数据的
+			
+		    <header></header>
+			<header1></header1>
+		    <script type="text/javascript">
+				//使用Vue.extend定义一个扩展
+				var header_a = Vue.extend({
+					 template:`<p>{{message}}-{{a}}</p>`,
+					 data:function(){
+						 return {
+							 message:'Hello,I am Header'
+						 }
+					 },
+					 props:['a']
+				}); 
+				//在挂载时传递一个数字过去，我们就用到了propsData
+				new header_a({propsData:{a:232323}}).$mount('header');
+				new header_a().$mount('header1');
+		    </script>
+		
+	</body>
+</html>

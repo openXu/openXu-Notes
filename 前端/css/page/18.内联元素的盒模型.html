@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>浏览器默认样式</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			span{
+				background-color: yellow;
+			}
+			.s1{
+				/*内容区、内边距、边框、外边距*/
+				/*内联元素不能设置width和height*/
+				width: 200px;
+				height: 200px;
+				
+				/*内联元素可以设置水平方向的内边距*/
+				padding-left: 50px; padding-right: 50px;
+				/*内联元素可以设置垂直方向内边距，但是不会影响页面的布局*/
+				padding-top: 20px; padding-bottom: 50px;
+			}
+			
+			/*内联元素可以设置边框，但是垂直的边框不会影响到页面的布局*/
+			.s2{
+				border: 10px blue solid;
+			}
+			.s3{
+				/*内联元素支持水平方向的外边距*/
+				margin-left: 50px; margin-right: 50px;
+				/*内联元素不支持垂直方向的外边距*/
+				margin-top: 50px; margin-bottom: 50px;
+			}
+			.div1{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+			}
+		</style>
+	<head/>
+
+	<body>
+		
+	<p class="lable">内联元素不能设置width和height；</p>
+	<p class="lable">内联元素可以设置水平方向的内边距；</p>
+	<p class="lable">内联元素可以设置垂直方向内边距，但是不会影响页面的布局；</p>
+	<p class="lable">内联元素可以设置边框，但是垂直的边框不会影响到页面的布局；</p>
+	<p class="lable">内联元素支持水平方向的外边距；</p>
+	
+	<p class="lable">内联元素支持水平方向的外边距，水平方向外边距不会重叠，而是求和；</p>
+	<p class="lable">内联元素不支持垂直方向的外边距；</p>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		span{
+				background-color: yellow;
+		}
+		.s1{
+			/*内容区、内边距、边框、外边距*/
+			/*内联元素不能设置width和height*/
+			width: 200px;
+			height: 200px;
+			
+			/*内联元素可以设置水平方向的内边距*/
+			padding-left: 50px; padding-right: 50px;
+			/*内联元素可以设置垂直方向内边距，但是不会影响页面的布局*/
+			padding-top: 20px; padding-bottom: 50px;
+		}
+		
+		/*内联元素可以设置边框，但是垂直的边框不会影响到页面的布局*/
+		.s2{
+			border: 10px blue solid;
+		}
+		.s3{
+			/*内联元素支持水平方向的外边距*/
+			margin-left: 50px; margin-right: 50px;
+			/*内联元素不支持垂直方向的外边距*/
+			margin-top: 50px; margin-bottom: 50px;
+		}
+		.div1{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+		
+		<!--html-->
+		<span class="s1">我是span</span>
+		<span class="s2">我是span</span>
+		<span class="s3">我是span</span>
+		<span>我是span</span>
+		
+		<div class="div1"></div>
+	 </xmp>
+	 
+	 
+	<p class="show">效果展示：</p>
+	
+	
+	<span class="s1">我是span</span>
+	<span class="s2">我是span</span>
+	<span class="s3">我是span</span>
+	<span>我是span</span>
+	
+	<div class="div1"></div>
+	
+	</body>
+
+<html/>
+
+

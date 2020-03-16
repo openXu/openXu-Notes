@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>元素层级</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			
+			.box1{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+			}
+			.box2{
+				width: 100px;
+				height: 100px;
+				background-color: green;
+				position: relative;
+				top: 50px;
+				left: 10px;
+				z-index: -2;
+			}
+			.box3{
+				width: 100px;
+				height: 100px;
+				background-color: blue;
+				position: relative;
+				z-index: -1;
+			}
+			
+			
+			
+			.box4{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				margin-top: 100px;
+			}
+			.box5{
+				width: 100px;
+				height: 100px;
+				background-color: green;
+				position: relative;
+				top: -50px;
+				left: 50px;
+				z-index: 2;
+				opacity:0.5;
+				filter:alpha(opacity=50)
+			}
+			.box6{
+				width: 100px;
+				height: 100px;
+				background-color: blue;
+				position: relative;
+				top: -100px;
+				left: 100px;
+				z-index: 3;
+				opacity:0.8;
+				/*兼容IE8及以下*/
+				filter:alpha(opacity=50)
+			}
+			
+		</style>
+		
+	<head/>
+
+	<body>
+		
+		
+	<p class="lable"><span class="Keyword">z-index:</span>
+		为元素设置层级，指定一个整数作为值，改值将会作为当前元素的层级，
+		层级越高，越优先显示。
+	</p>
+	<p class="lable">
+		对于没有开启定位的元素，不能使用z-index设置层级，
+		设置了也无效。
+	</p>
+	<p class="lable">
+		父元素盖不住子元素，即使父元素层级比子元素高。
+	</p>
+	
+	
+	
+	<p class="lable"><span class="Keyword">opacity:</span>
+		可以用来设置元素的透明，它需要一个0-1之间的值，0表示完全透明，1表示完全不透明，0.5表示半透明。
+	</p>
+	<p class="lable">
+		opacity属性在IE8及以下的浏览器中不支持，
+		IE8及以下的浏览器需要使用如下属性代替：
+	</p>
+	<p class="lable"><span class="Keyword">filter:alpha(opacity=50)</span>
+		透明度在0-100之间，0表示完全透明，100表示完全不透明，50半透明。
+		这种方式支持IE6，但是这种效果在IE Tester中无法测试。
+	</p>
+	
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		
+		<!--html-->
+	
+	 </xmp>
+	 
+	<p class="show">效果展示：</p>
+	
+	
+	<div class="box1"></div>
+	<div class="box2"></div>
+	<div class="box3"></div>
+	
+	<div class="box4"></div>
+	<div class="box5"></div>
+	<div class="box6"></div>
+	
+	</body>
+
+<html/>
+
+

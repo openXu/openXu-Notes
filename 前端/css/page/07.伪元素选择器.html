@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>伪元素</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		
+		<style type="text/css">
+			
+			/*为class=test的p元素的第一个字符设置一个特殊的样式*/
+			p.test:first-letter{    
+				color: red;
+				font-size: 25px;
+			}
+			/*:first-line第一行*/
+			p.test:first-line{    
+				background-color: palevioletred;
+			}
+			/*:before表示元素最前面的部分；
+			   一般before都需要结合content这个样式一起使用，通过content可以向before或after的位置添加一些内容*/
+			p.test:before{
+				content: "我是通过content添加，出现在整个段落最前边";
+				color:blue;
+			}
+			p.test:after{
+				content: "我是通过content添加，出现在整个段落最后边";
+				color:orange;
+			}
+		</style>
+	<head/>
+
+	<body>
+	
+	
+	<h1>目录</h1>
+	
+	<!--目录-->
+	
+	<a href="#index1">伪元素</a><br />
+	<a href="#index2">伪元素选择器</a><br />
+	 
+	 <br />
+	 <hr />
+	
+	<p id="index1"><span class="Keyword">伪元素：</span>
+		 	伪元素表示元素中的一些特殊位置</p>
+	<ul>
+		<li>: first-letter：元素的第一个字符</li>
+		<li>: first-line：元素的第一行</li>
+		<li>: before：元素最前面的部分</li>
+		<li>: after：元素最后边的部分"</li>
+		<p>一般before都需要结合content这个样式一起使用，通过content可以向before或after的位置添加一些内容</p>
+	</ul>
+	
+	
+	
+	<p id="index2"><span class="Keyword">伪元素选择器：</span>用来选中某个标签的某个位置</p>
+	<p>标签名 :伪元素{}</p>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+	  	<!--html-->
+		<p class="test">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p>
+	
+	  	<!--css-->
+	  		<!--为class=test的p元素的第一个字符设置一个特殊的样式-->
+			p.test:first-letter{    
+				color: red;
+				font-size: 25px;
+			}
+			<!--:first-line第一行-->
+			p.test:first-line{    
+				background-color: palevioletred;
+			}
+			<!--:before表示元素最前面的部分；
+			   一般before都需要结合content这个样式一起使用，通过content可以向before或after的位置添加一些内容-->
+			p.test:before{
+				content: "我是通过content添加，出现在整个段落最前边";
+				color:blue;
+			}
+			p.test:after{
+				content: "我是通过content添加，出现在整个段落最后边";
+				color:orange;
+			}
+	 </xmp>
+	
+	<p class="show">结果展示：</p>
+		
+	<p class="test">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p>
+	
+	<br />
+	<hr />
+	
+	
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>背景</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			
+			.box1{
+				width: 500px;
+				height: 500px;
+				background-color: whitesmoke;
+				background-image: url(../img/css_backgound_image_test.png);
+				background-repeat: no-repeat;
+				background-position:center center;
+			}
+			.menu{
+				width: 800px;
+				height: 40px;
+				background-image: url(../img/css_backgound_image_bg.png);
+				background-repeat: repeat-x;
+				margin: 50px auto;
+			}
+			
+			body{
+				width: 3000px;
+				height: 5000px;
+				background-image: url(../img/css_backgound_image_test.png);
+				background-repeat: no-repeat;
+				background-position:center center;
+				background-attachment:fixed;
+			}
+			
+		</style>
+		
+	<head/>
+
+	<body>
+		
+	<p class="lable">
+	</p>
+		
+	<p class="lable"><span class="Keyword">background-image:url(图片相对路径):</span>
+		设置背景图片，如果图片大于元素，默认显示图片左上角；如果图片小于元素，会显示多个图片铺满元素；
+		如果一样大，则会将背景图片全部显示。
+	</p>
+	<p class="lable">
+		可以同时为一个元素指定背景颜色和背景图片，背景颜色将作为背景图片的底色，
+		一般情况下设置背景图片时都会同时指定一个背景颜色。
+	</p>
+	
+	<p class="lable"><span class="Keyword">background-repeat:</span>
+		用于设置背景图片的重复方式，可选值：
+	</p>
+	<ul>
+		<li>repeat	默认。背景图像将在垂直方向和水平方向重复。</li>
+		<li>repeat-x	背景图像将在水平方向重复。</li>
+		<li>repeat-y	背景图像将在垂直方向重复。</li>
+		<li>no-repeat	背景图像将仅显示一次。</li>
+	</ul>
+	
+	
+	
+	<p class="lable"><span class="Keyword">background-position:</span>
+		设置背景图像的开始位置，可选值：
+	</p>
+	<ul>
+		以下组合如果您仅规定了一个关键词，那么第二个值将是"center"。
+		<li>top left</li>
+		<li>top center</li>
+		<li>top right</li>
+		<li>center left</li>
+		<li>center center</li>
+		<li>center right</li>
+		<li>bottom left</li>
+		<li>bottom center</li>
+		<li>bottom right</li>
+		<li>x% y%（默认值：0% 0%）。
+				第一个值是水平位置，第二个值是垂直位置。
+				左上角是 0% 0%。右下角是 100% 100%。
+				如果您仅规定了一个值，另一个值将是 50%。</li>
+
+
+ 		<li>xpos ypos	：第一个值是水平位置，第二个值是垂直位置。
+			左上角是 0 0。单位是像素 (0px 0px) 或任何其他的 CSS 单位。
+			如果您仅规定了一个值，另一个值将是50%。
+			您可以混合使用 % 和 position 值。</li>
+	</ul>
+	
+	
+	<p class="lable"><span class="Keyword">background-attachment:</span>
+		设置背景图像是否固定或者随着页面的其余部分滚动，可选值：
+	</p>
+	<ul>
+		<li>scroll	默认值。背景图像会随着页面其余部分的滚动而移动。</li>
+		<li>fixed	当页面的其余部分滚动时，背景图像不会移动。一般只设置给body</li>
+	</ul>
+	
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		
+		<!--html-->
+	
+	 </xmp>
+	 
+	<p class="show">效果展示：</p>
+	
+	<div class="box1"></div>
+	
+	<div class="menu"></div>
+	
+	</body>
+
+<html/>
+
+

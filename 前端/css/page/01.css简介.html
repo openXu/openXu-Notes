@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>css简介</title>
+		
+		<!--内部样式表-->
+		<style type="text/css">
+			h1{      /*选择器*/
+				color: red;
+				font-size: 15px;
+			}
+			h2{
+				color: black;
+				font-size: 15px;
+			}
+		</style>
+		
+		<!--外部样式表-->
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		
+	<head/>
+
+	<body>
+	
+	<h1>css简介</h1>
+	<p>css主要学习选择器 和 声明块的各种属性</p>
+	
+	<h2>CSS添加到HTML中的三种方式</h2>
+
+	<h3>内联样式：在HTML元素中使用“style”属性</h3>
+	<p>可以将CSS样式编写到元素的style属性中，内联样式只对当前的元素中的内容起作用，内联样式不方便复用，属于结构与表现耦合，不方便后期的维护，不推荐使用。<p>
+    
+    <p class="sample">示例：</p>
+    
+    <xmp>
+     <p style="color:red;font-size:15px;">我是红色的大小为40px的字符串</p>
+	</xmp>
+
+    <h3>内部样式表：在HTML文档头部head区域使用style元素来包含CSS</h3>
+
+	<p> 将样式表编写在style标签中，然后通过CSS选择器选中指定元素，可以同时为这些元素一起设置样式，这样可以使样式进一步的复用；
+ 将样式表编写到style标签中，也可以使表现和结构进一步分离，这也是推荐的使用方式。</p>
+ 	<p  class="sample">示例：</p>
+
+	<xmp>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>css简介</title>
+		
+		<!--内部样式表-->
+		<style type="text/css">
+			h1{      /*选择器*/
+				color: red;
+				font-size: 15px;
+			}
+			h2{
+				color: black;
+				font-size: 15px;
+			}
+		</style>
+		
+	<head/>
+	</xmp>
+	
+	
+	
+	<h3>外部引用 - 使用外部 CSS（xxx.css） 文件</h3>
+
+	  <p> 将样式编写到外部的CSS文件中，然后使用link标签来引入外部的CSS文件；rel和type属性都是固定值，而href需要一个外部css文件的路径。</p> 
+	  <p> 将样式编写到外部的css文件中，然后通过link标签引入，可以使CSS和HTML完全分离，而且可以在不同的页面中同时使用一个CSS样式表，可以使样式在不同的页面中 进行复用，方便后期的维护，而且统一将样式写在外部文件中，可以使用浏览器缓存机制加快用户请求的速度，提高用户体验，这也是开发中使用最多的方式。</p> 
+
+	  <p class="sample">示例：</p>
+	   <xmp>
+      <link rel="stylesheet" type="text/css" href="style.css" />
+	 </xmp>
+	
+	
+
+	
+	
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

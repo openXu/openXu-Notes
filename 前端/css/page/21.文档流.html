@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>文档流</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+		</style>
+		
+	<head/>
+
+	<body>
+	<p class="lable"><span class="Keyword">文档流:</span>
+		文档流处在网页的最底层，它表示的是一个页面中的位置，我们所创建的元素默认都处在文档流中。
+	</p>
+	<p class="lable">
+		元素在文档流中的特点：
+	</p>
+	<p class="lable">
+		块元素：
+	</p>
+	<ul>
+		<li>1、块元素在文档流中会独占一行，块元素会自上向下排列</li>
+		<li>2、块元素在文档流中默认宽度是父元素的100%，
+			当元素宽度值为auto时，指定内边距不会影响可见框的大小，
+			而是会自动修改宽度以适应内边距。</li>
+		<li>3、块元素在文档流中的高度默认是被内容撑开（包裹内容）</li>
+	</ul>
+	<p class="lable">
+		内联元素：
+	</p>
+	<ul>
+		<li>1、在文档流中只占自身的大小，会默认从左向右排列；
+		如果一行不足以容纳所有的内联元素，则换到下一行，继续自左向右排列。</li>
+		<li>2、在文档流中，内联元素的宽高默认都是被内容撑开（包裹内容）</li>
+	</ul>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		<!--html-->
+		<div style="background-color: red;">
+			<div style="height: 50px;">
+			</div>
+		</div>
+		<div style="background-color: yellow;width: 50px;height: 50px;">
+		</div>
+		<span style="background-color: green;">我是span</span>
+		<span style="background-color: green;">我是span</span>
+		<span style="background-color: green;">我是span</span>
+		<span style="background-color: green;">我是span</span>
+		<span style="background-color: green;">我是span</span>
+	 </xmp>
+	 
+	 
+	<p class="show">效果展示：</p>
+	
+	<div style="background-color: red;">
+		<div style="height: 50px;">
+		</div>
+	</div>
+	
+	
+	<div style="background-color: yellow;width: 50px;height: 50px;">
+	</div>
+	
+	<span style="background-color: green;">我是span</span>
+	<span style="background-color: green;">我是span</span>
+	<span style="background-color: green;">我是span</span>
+	<span style="background-color: green;">我是span</span>
+	<span style="background-color: green;">我是span</span>
+	
+	</body>
+
+<html/>
+
+

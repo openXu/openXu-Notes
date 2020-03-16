@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>列表</title>
+		
+		<!--<style type="text/css">
+			ul{
+				list-style: none;
+			}
+		</style>-->
+		
+	<head/>
+	<link rel="stylesheet" type="text/css" href="../../css/hello.css" />
+
+	<body>
+	
+	
+	<h1>列表</h1>
+	
+	<p class="lable">列表就相当于去超时购物时的那个购物清单，在HTML中也可以创建列表，在网页中一共有三种列表：</p>
+	<ul>
+		<li>无序列表</li>
+		<li>有序列表</li>
+		<li>定义列表</li>
+	</ul>
+	
+	<!--无序列表-->
+	<p class="lable"><span class="Keyword">1. 无序列表</span>：使用ul标签来创建，使用li标签在ul中创建一个一个的列表项。</p>
+	<p class="lable">通过type属性可以修改无序列表的项目符号，可选值：</p>
+	<ul>
+		<li>disc：默认值，实心圆点</li>
+		<li>square：实心方块</li>
+		<li>circel：空心的圆</li>
+	</ul>
+	<p class="lable"><span class="Keyword">注意</span>：默认的项目符号我们一般都不用（每个浏览器展示有差异），
+		如果需要设置项目符号，可以采用为li设置背景图片的方式来设置。</p>
+	<p class="lable">可以通过css去掉ul的项目符号</p>
+     <xmp>
+	<!--去掉无序列表的项目符号-->
+	ul{
+		list-style: none;
+	}
+	</xmp>
+	
+	
+	<!--有序列表-->
+	<p class="lable"><span class="Keyword">2. 有序列表</span>：和无序列表类似，只不过使用ol来代替ul；ol也是块元素。</p>
+	<p class="lable">有序列表使用有序的序号作为项目符号，type属性可以指定序号的类型，可选值：</p>
+	<ul>
+		<li>1：默认值，使用阿拉伯数字</li>
+		<li>a/A：采用小写或大写字母作为序号</li>
+		<li>i/I：采用小写或大写的罗马数字作为序号</li>
+	</ul>
+	
+	
+	<!--定义列表-->
+	<p class="lable"><span class="Keyword">3. 定义列表</span>：用来对一些词汇或者内容进行定义。</p>
+	<p class="lable">使用dl来创建一个定义列表；dl中有两个子标签:</p>
+	<ul>
+		<li>dt：被定义的内容</li>
+		<li>dd：对定义的内容的描述</li>
+	</ul>
+	
+	<p class="Keyword">dl和ul和ol之间都可以相互嵌套</p>	
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+	  		
+	  	<!--html-->
+	  	<!--无序列表-->
+		<ul>
+			<li>哈哈哈哈</li>
+			<li>哈哈哈哈</li>
+			<li>哈哈哈哈</li>
+		</ul>
+		
+		<!--有序列表-->
+		<ol type="A">
+			<li>哈哈哈哈</li>
+			<li>哈哈哈哈</li>
+			<li>哈哈哈哈</li>
+		</ol>
+	
+		<!--嵌套列表-->
+		<ol type="1">
+			<li>爆炒牛肚</li>
+			<ul type="1">
+				<li>红辣椒</li>
+				<li>青椒</li>
+			</ul>
+			<li>青椒肉丝</li>
+			<ul type="1">
+				<li>红辣椒</li>
+				<li>朝天椒</li>
+			</ul>
+			<li>水煮鱼</li>
+			<ol type="1">
+				<li>鲇鱼</li>
+				<li>草鱼</li>
+			</ol>
+		</ol>
+	  	
+	  	<!--定义列表-->
+		<dl>
+			<dt>武松</dt>
+			<dd>景阳冈打虎英雄，战斗力99.99</dd>
+			<dd>媳妇儿潘金莲跟西门官人私通，后来被武松打死</dd>
+			<dt>武大</dt>
+			<dd>著名餐饮企业家，战斗力0</dd>
+		</dl>
+	  	
+	  	<!--css-->
+	 </xmp>
+	 
+	 <p class="show">效果展示：</p>
+	
+	<!--无序列表-->
+	<ul>
+		<li>哈哈哈哈</li>
+		<li>哈哈哈哈</li>
+		<li>哈哈哈哈</li>
+	</ul>
+	
+	<!--有序列表-->
+	<ol type="A">
+		<li>哈哈哈哈</li>
+		<li>哈哈哈哈</li>
+		<li>哈哈哈哈</li>
+	</ol>
+
+	<!--嵌套列表-->
+	<ol type="1">
+		<li>爆炒牛肚</li>
+		<ul type="1">
+			<li>红辣椒</li>
+			<li>青椒</li>
+		</ul>
+		<li>青椒肉丝</li>
+		<ul type="1">
+			<li>红辣椒</li>
+			<li>朝天椒</li>
+		</ul>
+		<li>水煮鱼</li>
+		<ol type="1">
+			<li>鲇鱼</li>
+			<li>草鱼</li>
+		</ol>
+	</ol>
+	
+	<!--定义列表-->
+	<dl>
+		<dt>武松</dt>
+		<dd>景阳冈打虎英雄，战斗力99.99</dd>
+		<dd>媳妇儿潘金莲跟西门官人私通，后来被武松打死</dd>
+		<dt>武大</dt>
+		<dd>著名餐饮企业家，战斗力0</dd>
+	</dl>
+
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

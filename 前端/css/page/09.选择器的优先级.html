@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>选择器的优先级</title>
+		
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		
+		<style type="text/css">
+			
+			#p2{  /*优先级100*/
+				font-size: 20px;
+			}
+			p{  /*元素选择器：优先级1*/
+				font-size: 40px;
+			}
+			.p1{  /*类和伪类：优先级10*/
+				font-size: 30px;
+			}
+		</style>
+	<head/>
+	
+	
+
+	<body>
+	
+	
+	<h1>选择器的优先级</h1>
+    <p class="lable">当使用不同的选择器，选中同一个元素时，并且设置相同的样式属性时，
+    	这时样式之间产生了冲突，最终到底采用哪个选择器定义的样式，
+    	由选择器的优先级（权重）决定，优先级高的优先显示。
+    </p>
+
+	<p class="Keyword">优先级规则：</p>
+	<ul class="lable">
+		<li>内联样式：优先级1000</li>
+		<li>id选择器：优先级100</li>
+		<li>类和伪类：优先级10</li>
+		<li>元素选择器：优先级1</li>
+		<li>通配*：优先级0</li>
+		<li>继承的样式：没有优先级</li>
+	</ul>
+ 	<p class="lable">当选择器中包含多种选择器时，需要将多种选择器的优先级相加，然后再比较；</p>
+ 	<p class="lable">但是注意：选择器优先级计算不会超过他的最大的数量级，比如11个类选择器优先级加起来最多只能到99，不会达到100；</p>
+ 	<p class="lable">如果选择器的优先级一样，则使用靠后的样式。</p>
+ 	
+ 	<p class="lable">并集选择器的优先级时单独计算：div,p,#p1,.hello{}</p>
+ 	
+ 	<p class="lable">可以在样式的最后，添加一个!important，则此时改样式将会获得一个最高的优先级；
+ 	将会优先于所有的样式显示甚至超过内联样式，但是开发中尽量避免使用!important</p>
+ 	
+ 	
+	<p class="sample">示例：</p>
+	  <xmp>
+	  	
+	  	<!--html-->
+	  	<p class="p1 p3" id= "p2" >
+	 		哈哈哈哈哈哈哈哈
+		 </p>
+		 
+		 <p class="p1 p3" id= "p2" style="font-size: 30px; background-color: pink;">
+		 		黑恶嘿嘿额嘿嘿嘿嘿额hi
+		 </p>
+		  	
+	  	<!--css-->
+	  	#p2{  /*优先级100*/
+			font-size: 20px;
+		}
+		p{  /*元素选择器：优先级1*/
+			font-size: 40px;
+		}
+		.p1{  /*类和伪类：优先级10*/
+			font-size: 30px;
+		}
+	  	
+	 </xmp>
+	 
+	 <p class="show">效果展示：</p>
+	 
+	 
+	 <p class="p1 p3" id= "p2" >
+	 		哈哈哈哈哈哈哈哈
+	 </p>
+	 
+	 <p class="p1 p3" id= "p2" style="font-size: 30px; background-color: pink;">
+	 		黑恶嘿嘿额嘿嘿嘿嘿额hi
+	 </p>
+	
+	
+	
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

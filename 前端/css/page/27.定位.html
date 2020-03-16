@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>定位</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			
+			.box1{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+			}
+			
+			.box2{
+				width: 100px;
+				height: 100px;
+				background-color: blue;
+				position: relative;
+				left: 100px;
+				top: 100px;
+			}
+			.box3-p{
+				width: 120px;
+				height: 120px;
+				background-color: saddlebrown;
+				position: relative;
+				left: 10px;
+				top: 10px;
+			}
+			.box3{
+				width: 100px;
+				height: 100px;
+				background-color: yellow;
+				position: absolute;
+				left: 30px;
+				top: 30px;
+			}
+			.s1{
+				position: relative;
+				left: 10px;
+			}
+			
+			.box4-p{
+				width: 120px;
+				height: 120px;
+				background-color: saddlebrown;
+				position: relative;
+				left: 10px;
+				top: 10px;
+			}
+			.box4{
+				width: 100px;
+				height: 100px;
+				background-color: yellow;
+				position: fixed;
+				left: 100px;
+				top: 500px;
+			}
+			
+		</style>
+		
+	<head/>
+
+	<body>
+		
+	<p class="lable">
+		定位就是将指定的元素摆放到页面的任意位置，
+		通过定位可以任意的摆放元素。
+	</p>
+		
+	<p class="lable"><span class="Keyword">position:</span>
+		通过pisition属性来设置元素的定位类型，可选值：
+	</p>
+	<ul>
+		<li>absolute：
+			生成绝对定位的元素，相对于 static 定位以外的<b>第一个父元素</b>进行定位。
+			元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。
+			</li>
+		<li>fixed：
+			生成绝对定位的元素，<b>相对于浏览器窗口</b>进行定位。
+		元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。</li>
+		<li>relative：
+			生成相对定位的元素，<b>相对于其正常位置</b>进行定位。
+			因此，"left:20" 会向元素的 LEFT 位置添加 20 像素。</li>
+		<li>static：
+			默认值。没有定位，元素出现在正常的流中
+			（忽略 top, bottom, left, right 或者 z-index 声明）。</li>
+	</ul>
+	
+	
+	<p class="lable" style="color: red;font-weight: bold;">
+		relatice相对定位特点：
+	</p>
+	<ol>
+		<li>如果不设置偏移量时，元素不会发生任何变化。</li>
+		<li>相对定位是相对于元素在文档流中原来的位置进行定位</li>
+		<li>相对定位不会使元素脱离文档流</li>
+		<li>相对定位会使元素提升一个层级，所以可能会遮盖其他元素</li>
+		<li>相对定位不会改变元素的性质，块还是块，内联还是内联</li>
+	</ol>
+	
+	
+	<p class="lable" style="color: red;font-weight: bold;">
+		absolute绝对定位特点：
+	</p>
+	<ol>
+		<li>绝对定位会使元素脱离文档流；</li>
+		<li>绝对定位是相对于离他最近的开启了定位的祖先元素进行定位的；
+		如果所有的素馅元素都没有开启定位，则会相对于浏览器窗口进行定位。</li>
+		<li>绝对定位会使元素提升一个层级</li>
+		<li>绝对元素会改变元素性质（行内块line-block），内联元素变成块元素，块元素的宽高默认都被内容撑开</li>
+	</ol>
+	
+	
+	<p class="lable" style="color: red;font-weight: bold;">
+		fixed固定定位特点：
+	</p>
+	<ol>
+		<li>固定定位永远都是相对于浏览器窗口定位；</li>
+		<li>固定定位会固定在浏览器窗口的某个位置，不会随滚动条滚动</li>
+		<li></li>
+	</ol>
+	
+	<p class="lable" style="color: red;font-weight: bold;">
+		定位会导致元素层级的提升，如果元素层级是一样的，则后面定义的元素会覆盖上面的元素
+	</p>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		
+		<!--html-->
+	
+	 </xmp>
+	 
+	<p class="show">效果展示：</p>
+	
+	
+	<div class="box1"></div>
+	<div class="box2">
+		<span style="color: white;">相对定位</span>
+	</div>
+	<div class="box3-p">
+		<span style="color: white;">相对定位</span>
+		<div class="box3">
+				<span style="color: black;">绝对定位（相对于box3-p）</span>
+		</div>
+	</div>
+	
+	<span class="s1">我是一个span</span>
+	
+	
+	<div class="box4-p">
+		<span style="color: white;">相对定位</span>
+		<div class="box4">
+				<span style="color: black;">固定定位（相对于浏览器窗口）</span>
+		</div>
+	</div>
+	
+	</body>
+
+<html/>
+
+

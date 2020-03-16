@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>clear</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			.box1{
+				width: 50px;
+				height: 50px;
+				background-color: red;
+				float: left;
+			}
+			.box2{
+				width: 100px;
+				height: 100px;
+				background-color: #8A2BE2;
+				float: right;
+				clear: left;
+			}
+			.box3{
+				width: 150px;
+				height: 150px;
+				background-color: yellow;
+				clear: both;
+			}
+			
+			
+			.box4{
+				border: solid #4169E1 10px;
+			}
+			.box5{
+				width: 100px;
+				height: 100px;
+				background-color: #8A2BE2;
+				float: left;
+			}
+			/*.box6{
+				clear: left;
+			}*/
+			/*通过after伪类，选中box1的后边，添加一个空白的块元素，并清除浮动*/
+			.clearfix:after{
+				/*添加一个内容*/
+				content: "";
+				display: block;
+				clear: both;
+			}
+			/*IE6不支持after伪类，需要使用hasLayout做兼容*/
+			.clearfix{
+				zoom: 1;
+			}
+			
+		</style>
+		
+	<head/>
+
+	<body>
+		
+	<p class="lable"><span class="Keyword">clear：</span>
+		元素浮动会导致元素下方整体上移，
+		如果希望清除掉其他元素浮动对当前元素产生的影响，这时可以使用clear实现。
+		clear可以规定元素的哪一侧不受浮动元素的影响导致的位置移动，可选值：
+	</p>
+	<ul>
+		<li>left	清除左侧浮动元素对当前元素的影响。</li>
+		<li>right	清除右侧浮动元素对当前元素的影响。</li>
+		<li>both	清除两侧浮动元素对当前元素的影响，清除对它影响最大的哪个元素的浮动。</li>
+		<li>none	默认值。允许浮动元素出现在两侧。</li>
+	</ul>
+	<p class="lable">
+	</p>
+	
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		.box1{
+			width: 50px;
+			height: 50px;
+			background-color: red;
+			<!--向左浮动-->
+			float: left;
+		}
+		.box2{
+			width: 100px;
+			height: 100px;
+			background-color: #8A2BE2;
+			float: right;
+			<!--清除左边浮动元素的影响-->
+			clear: left;
+		}
+		.box3{
+			width: 150px;
+			height: 150px;
+			background-color: yellow;
+			<!--清除两侧浮动元素的影响-->
+			clear: both;
+		}
+		
+		
+		.box4{
+			border: solid #4169E1 10px;
+		}
+		.box5{
+			width: 100px;
+			height: 100px;
+			background-color: #8A2BE2;
+			float: left;
+		}
+		.box6{
+			<!--高度塌陷问题解决终极方案-->
+			clear: left;
+		}
+		<!--通过after伪类，选中box1的后边，添加一个空白的块元素，并清除浮动-->
+		.clearfix:after{
+			/*添加一个内容*/
+			content: "";
+			display: block;
+			clear: both;
+		}
+		<!--IE6不支持after伪类，需要使用hasLayout做兼容-->
+		.clearfix{
+			zoom: 1;
+		}
+		<!--html-->
+		<div class="box1">
+		</div>
+		<div class="box2">
+		</div>
+		<div class="box3">
+		</div>
+		
+		<div class="box4">
+			<div class="box5"></div>
+			<div class="box6"></div>
+		</div>
+	 </xmp>
+	 
+	 
+	<p class="show">效果展示：</p>
+	<div class="box1">
+	</div>
+	<div class="box2">
+	</div>
+	<div class="box3">
+	</div>
+	
+	<p class="notice">高度塌陷：</p>
+	
+	<p class="lable">
+		可以直接在高度塌陷的父元素的最后，添加一个空白的div，由于这个div并没有浮动，
+		它可以撑开父元素的高度，只需要对其进行清除浮动，这样可以撑开父元素的高度了，
+		基本没有副作用，但是会在页面中添加多余的结构。
+	</p>
+	<p class="lable">
+		通过after伪类向元素的最后添加一个空白的块元素，然后对其清除浮动，
+		这样做和上面的原理一样，但不会在页面中添加多余的div,这是我们最推荐的方式，几乎没有副作用。
+	</p>
+	
+	<p class="Keyword">高度塌陷终极解决方案（在高度塌陷的元素添加class=clearfix）：</p>
+	<xmp>
+	.clearfix:after{
+		/*添加一个内容*/
+		content: "";
+		display: block;
+		clear: both;
+	}
+	<!--IE6不支持after伪类，需要使用hasLayout做兼容-->
+	.clearfix{
+		zoom: 1;
+	}
+	</xmp>
+	
+	<div class="box4 clearfix">
+		<div class="box5"></div>
+<!--		<div class="box6"></div>-->
+	</div>
+	
+	
+	</body>
+
+<html/>
+
+

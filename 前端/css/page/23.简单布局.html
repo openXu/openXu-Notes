@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>简单布局</title>
+		<style  type="text/css">
+				/*去除系统默认样式*/
+				*{
+					margin: 0;
+					padding: 0;
+				}
+				.header{
+					width: 1000px;
+					height: 100px;
+					background-color: yellowgreen;
+					/*设置居中*/
+					margin: 0 auto;
+				}
+				.content{
+					width: 1000px;
+					height:400px;
+					background-color: coral;
+					/*设置居中*/
+					margin: 10px auto;
+				}
+				.footer{
+					width: 1000px;
+					height: 100px;
+					background-color: gray;
+					/*设置居中*/
+					margin: 0 auto;
+				}
+				.left{
+					width: 200px;
+					height: 100%;
+					background-color: yellow;
+					/*向左浮动*/
+					float: left;
+				}
+				.center{
+					width: 480px;
+					height: 100%;
+					background-color: palevioletred;
+					/*向左浮动*/
+					float: left;
+					margin: 0 10px ;
+				}
+				.right{
+					width: 300px;
+					height: 100%;
+					background-color: white;
+					/*向左浮动*/
+					float: left;
+				}
+				
+				.center-top{
+					width: 100%;
+					height: 150px;
+					background-color: green;
+				}
+				
+				.center-1{
+					width: 33%;
+					height: 250px;
+					background-color: blueviolet;
+					/*向左浮动*/
+					float: left;
+				}
+				.center-2{
+					width: 65%;
+					height: 250px;
+					background-color: firebrick;
+					/*向左浮动*/
+					float: right;
+				}
+				
+				/*开班信息*/
+				
+				
+				body{
+					/*文字大小/行高*/
+					font: 12px/1 宋体;
+				}
+				
+				.kb_title{
+					width: 100%;
+					height: 36px;
+					background-color: #f5f6f8;
+					border-top: 2px #008000 solid;
+					/*设置行高，与高度相同，这样内容就垂直居中了*/
+					line-height: 36px;
+				}
+				.kb_title h3{
+					font: 16px/36px 微软雅黑;
+					display: inline-block;
+					padding-left: 16px;
+				}
+				.kb_title a{
+					float: right;
+					color: red;
+					padding-right: 22px;
+				}
+				
+				.kb_content{
+					border: 1px #f5f6f8 solid;
+					padding: 0px 28px 0px 22px;
+				}
+				.kb_content h3{
+					margin-top: 10px;
+					margin-bottom: 16px;
+				}
+				.kb_content a{
+					color: black;
+					/*去掉超链接下划线*/
+					text-decoration: none;
+					font-size: 12px;
+				}
+				.kb_content a:hover{
+					color: red;
+					text-decoration: underline;
+				}
+				.kb_content ul{
+					/*去掉项目符号*/
+					list-style: none;
+					/*为ul设置下边框*/
+					border-bottom: 1px dashed #deddd9;
+				}
+				/*去掉最后一个ul的边框*/
+				.kb_content .no-border{
+					border-bottom: none;
+				}
+				.kb_content li{
+					margin-bottom: 10px;
+				}
+				.kb_content .red{
+					color: red;
+					font-style: ;
+				}
+				.kb_content .bm{
+					float: right;
+				}
+			
+		</style>
+		
+	<head/>
+
+	<body>
+		
+	<div class="header">
+	</div>
+	<div class="content">
+		<div class="left">
+		</div>
+		<div class="center">
+			
+			<div class="center-top">
+			</div>
+			<div class="center-1">
+			</div>
+			<div class="center-2">
+			</div>
+			
+		</div>
+		<!--开班信息-->
+		<div class="right">
+			<!--头部信息-->
+			<div class="kb_title">
+				<a href="#">16年面授开班计划</a>
+				<h3>近期开班</h3>
+			</div>
+			<!--开班内容-->
+			<div class="kb_content">
+				<h3><a href="#">JavaEE+云计算-全程就业班</a></h3>
+				<ul>
+					<li>
+						<a class="bm"><span class="red">预约报名</span></a>
+						<a href="#">开班时间：<span class="red">2016-04-27</span></a>
+					</li>
+					<li>
+						<a class="bm"><span class="red">无座，名额爆满</span></a>
+						<a href="#">开班时间：<span class="red">2016-04-27</span></a>
+					</li>
+					<li>
+						<a class="bm"><span>开班盛况</span></a>
+						<a href="#">开班时间：<span >2016-04-27</span></a>
+					</li>
+					<li>
+						<a class="bm"><span>开班盛况</span></a>
+						<a href="#">开班时间：<span>2016-04-27</span></a>
+					</li>
+					<li>
+						<a class="bm"><span>开班盛况</span></a>
+						<a href="#">开班时间：<span>2016-04-27</span></a>
+					</li>
+				</ul>
+				<h3><a href="#">Android+人工智能-全程就业班</a></h3>
+				<ul>
+					<li>
+						<a class="bm"><span class="red">预约报名</span></a>
+						<a href="#">开班时间：<span class="red">2016-04-27</span></a>
+					</li>
+					<li>
+						<a class="bm"><span>开班盛况</span></a>
+						<a href="#">开班时间：<span>2016-04-27</span></a>
+					</li>
+					<li>
+						<a class="bm"><span>开班盛况</span></a>
+						<a href="#">开班时间：<span>2016-04-27</span></a>
+					</li>
+					<li>
+						<a class="bm"><span>开班盛况</span></a>
+						<a href="#">开班时间：<span>2016-04-27</span></a>
+					</li>
+				</ul>
+				<h3><a href="#">前端+HTML5-全程就业班</a></h3>
+				<ul class="no-border">
+					<li>
+						<a class="bm"><span class="red">预约报名</span></a>
+						<a href="#">开班时间：<span class="red">2016-04-27</span></a>
+					</li>
+					<li>
+						<a class="bm"><span>开班盛况</span></a>
+						<a href="#">开班时间：<span>2016-04-27</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+	</div>
+	
+	
+	</body>
+
+<html/>
+
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>clear</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			
+			.box1{
+				width: 170px;
+				height: 170px;
+				background-color: #FFA500;
+			}
+			.box2{
+				width: 100px;
+				height: 100px;
+				background-color: #FFFF00;
+				margin-top: 50px ;
+			}
+			.box3{
+				border: solid #0000FF 10px;
+			}
+			.box4{
+				width: 100px;
+				height: 100px;
+				background-color: #8A2BE2;
+			}
+			
+			/*
+			 * 经过修改后的clearfix是一个多功能的，
+			 * 既可以解决高度塌陷，又可以确保父元素和子元素的垂直外边距不会重叠
+			 */
+			.clearfix:before,
+			.clearfix:after{
+				content: "";
+				display: table;
+				clear: both;
+			}
+			<!--IE6不支持after伪类，需要使用hasLayout做兼容-->
+			.clearfix{
+				zoom: 1;
+			}	
+		</style>
+		
+	<head/>
+
+	<body>
+		
+	<p class="lable">
+		子元素和父元素相邻的垂直外边距会发生重叠，子元素的外边距会传递给父元素，
+		使用空的table标签可以隔离父子元素的外边距，阻止外边距的重叠。
+	</p>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+			/*
+			 * 经过修改后的clearfix是一个多功能的，
+			 * 既可以解决高度塌陷，又可以确保父元素和子元素的垂直外边距不会重叠
+			 */
+			.clearfix:before,
+			.clearfix:after{
+				content: "";
+				display: table;
+				clear: both;
+			}
+			<!--IE6不支持after伪类，需要使用hasLayout做兼容-->
+			.clearfix{
+				zoom: 1;
+			}	
+		<!--html-->
+		<div class="box3">
+		<div class="box4">
+		</div>
+		<div class="box1">
+			<div class="box2">
+		</div>
+	 </xmp>
+	 
+	 
+	<p class="show">效果展示：</p>
+	
+	<div class="box3 clearfix">
+		<div class="box4"></div>
+	</div>
+	<div class="box1 clearfix" >
+		<div class="box2"></div>
+	</div>
+	</body>
+
+<html/>
+
+

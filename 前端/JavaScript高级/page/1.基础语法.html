@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>基础知识</title>
+		<link rel="stylesheet" type="text/css" href="../../css/hello.css" />
+		
+		<!--引入外部js文件，此标签不能再编写js代码，会被忽略-->
+		<!--<script type="text/javascript" src="../js/hello.js"></script>-->
+		
+		<!--JS代码需要编写到script标签中-->
+		<script type="text/javascript">
+//	 		alert("哥，你真帅啊！！");
+//			alert("我是内部的js弹窗");
+//	 		document.write("向body中输出一个内容");
+//	 		console.log("我将从控制台出来");
+	 	</script>
+	<head/>
+
+	<body>
+
+
+	<h2>编写位置</h2>
+
+	<p class="lable">1、可以将js代码编写到标签的onclick属性中，当点击时会执行；
+		还可以将js代码写在超链接的href属性中，点击超链接时会执行。
+		</p>
+		
+	<button onclick="alert('讨厌，点我干嘛~~')">哈哈</button>
+	<a href="javascript:alert('让你点就点');">点我啊啊啊</a>
+	<a href="javascript:;">点我啊啊啊</a>
+
+	<p class="lable">虽然可以这样写，但他们属于结构于行为耦合，不方便维护，不推荐这样使用。</p>
+	<p class="lable">2、可以将js代码编写到外部js文件中，然后通过script标签引入，写到外部文件中可以
+	在不同的页面中同时引用，也可以利用到浏览器的缓存机制，推荐使用的方式。</p>
+	
+	<p class="lable">3、script标签一旦用于引入外部文件就不能再编写代码了，
+		即使编写了浏览器也会忽略，如果需要则可以再创建一个新的script标签
+		用于编写内部代码</p>
+	<p class="lable">js会按照编写顺序从上往下一行行执行</p>
+
+
+
+	
+	<p class="sample">示例：</p>
+	<xmp>
+		
+		<!--引入外部js文件，此标签不能再编写js代码，会被忽略-->
+		<script type="text/javascript" src="../js/hello.js"></script>
+		
+		<!--JS代码需要编写到script标签中-->
+		<script type="text/javascript">
+	 		/*
+	 		 * 控制浏览器弹出一个警告框
+	 		 * 让计算机在页面中输出一个内容 可以向body中输出一个内容
+	 		 * 向控制台输出一个内容
+	 		 */
+	 		alert("哥，你真帅啊！！");
+	 		document.write("向body中输出一个内容");
+	 		console.log("我将从控制台出来");
+	 	</script>
+	</xmp>
+	
+	
+	<h2>基本语法</h2>
+
+	<ul>
+		<li>注释：多行注释/* */   单行注释//</li>
+		<li>html中不区分大小写，但是js严格区分大小写</li>
+		<li>js语句以分号(;)结尾，如果不写浏览器会自动添加，但是会消耗系统资源，而且有时候会加错分号，所以养成习惯必须写</li>
+		<li>js会忽略多个空格和换行，所以可以对代码进行格式化</li>
+		<li>js六种数据类型String、Number、Boolean、Null、Undefind、Object，前五种是基本数据类型，Object是引用数据类型</li>
+		<li>js用var关键字声明一个变量，使用var声明的变量，会在所有代码执行之前被声明（但不会赋值）</li>
+		<li>js中标识符可以含有数字、字母、_、$，不能以数字开头，不能是ES中的关键字和保留字</li>
+		<li>Null(空值)类型的值只有一个，就是null，这个值专门用来表示一个空的对象，使用typeof检测一个null值返回object</li>
+		<li>Undefined(未定义)类型的值只有一个undefind，当声明一个变量但是不给他赋值时，他的值就是undefined，使用typeof检查一个undefined会返回undefined</li>
+		<li></li>
+	</ul>
+	
+		<p class="lable">二进制浮点数和四舍五入的错误：
+	    js进行浮点计算，可能得到不精确的结果，任何语言中都存在这个问题，
+	    计算机存储的浮点数是有限个的，但是浮点数值是无数的，都是一个近似值
+	</p>
+	 <xmp>
+		float a = .8f;
+        float b = .6f;
+        float c = .4f;
+        float x1 = a-b;
+        float x2 = b-c;
+        System.out.print("差值是否相等x1="+x1 +"    x2="+x2+"    x1==x2?"+(x1==x2));
+        //差值是否相等x1=0.20000000000000007    x2=0.19999999999999996    x1==x2?false
+	  </xmp>
+	
+	<p class="lable"><span class="Keyword">直接量</span>
+		所谓直接量就是程序中直接使用的数据值。如12 、 1.2  、 “hello world”、'hi'、 null、{x:1, y:2}、 [1,2]
+	</p>	
+	<p class="lable"><span class="Keyword">标识符</span>
+		标识符就是一个名字。在JavaScript中用来对变量和函数命名，或用作JavaScript代码中 某些循环语句中跳转位置的标记。
+		JavaScript标识符必须以字母、下划线(_)或美元符($)开始，由字母、数字、下划线或美元付组成。
+	</p>
+	
+	<p class="lable"><span class="Keyword">类型</span>
+		JavaScript的数据类型分为两大类：<br/>
+		原始类型:数字、字符串、布尔值；两个特殊的原始值：null和undefined;<br/>
+		对象类型:对象是属性的集合，特殊对象（数组、函数）
+	</p>
+	
+	<p class="lable"><span class="Keyword">变量</span>
+		JavaScript变量是无类型的，变量可以呗赋予任何类型的值，用var关键字来声明变量。
+	</p>
+	
+	
+	
+	<p class="lable"><span class="Keyword">数据类型</span>
+		
+	<p class="lable"><span class="Keyword">字符串</span>
+		字符串是一组由16位值组成的不可变的有序序列，字符串（和其数组）的索引从零开始；
+		JavaScript中字符串是固定不变的，类似replace()和toUpperCase()的方法都返回新字符串，
+		原字符串本身并没有发生变化。字符串，使用双引号或单引号都可以，但是不要混着用；
+		引号不能嵌套，双引号中不能放双引号，单引号中不能放单引号，可以使用转义符\
+	</p>http://www.gulixueyuan.com/course/58/task/1403/show
+  	<xmp> 
+		var s = "hello,world";   //定义一个字符串
+		s.charAt(0);              //h：第一个字符
+		s.charAt(s.length-1);     //d：最后一个字符
+		s.substring(1,4);         //ell：第2-4哥字符
+		s.slice(1,3);             //ell：同上
+		s.slice(-3);              //rld：最后三个字符
+		s.indexOf("l");           //2：字符l首次出现的位置
+		s.lastIndexOf("l");       //10：字符l最后一次穿线的位置
+		s.indexOf("l", 3);        //3:在位置3既以后首次出现字符l的位置
+		s.split(",");             //["hello", "world"]:分割成字串
+		s.replace("h", "H");      //Hello,world :全文字符替换
+		s.toUpperCase();          //HELLO,WORLD 
+		
+		s = "testing 1,2,3";
+		var pattern = /\d+/g      //匹配所有包含一个或多个数字的实例
+	    pattern.test(s)           //true:匹配成功
+	    s.search(pattern);        //9:首次匹配成功的位置
+	    s.match(pattern);         //["1", "2", "3"]:所有匹配组成的数组
+	    s.replace(pattern, "#");  //testing #,#,#
+	    text.split(/\D+/);        //["", "1", "2", "3"]:用非数字字符截取字符串
+	  </xmp>
+	  
+	<p class="lable"><span class="Keyword">Number：</span>
+	    在js中所有的数值都是Number类型，包括整数和浮点数，Number.MAX_VALUE表示最大值。
+	    使用“typeof 变量”来检测一个变量类型。NaN是一个特殊的数字，表示Not A Number，用
+	    typeof检测NaN返回number
+	</p>
+	
+	<p class="lable"><span class="Keyword">布尔值</span>
+		保留字true和false；任意JavaScript值都可以转换位布尔值，下面这些值会转换成false(undefined、null、0、-0、NaN、"");
+		所有其他值包括对象（数组）都会转换成true
+	</p>
+	
+	<p class="lable"><span class="Keyword">null和undefined</span>
+		null是JavaScript的关键字，他表示一个特殊值，常用来描述“空值”。对null执行typeof预算返回字符串object,
+	</p>
+	
+	<p class="lable"><span class="Keyword">数组：</span>
+		js的数组可以放任意数据类型，这与java不同，java创建的是指定类型的数组。
+	</p>
+	<ul>
+		<li> 使用typeof arr检测对象时，返回Object</li>
+		<li> 如果读取不存在的索引，不会报错而是返回undefined</li>
+		<li> 如果时连续的数组，使用arr.length可以获取数组长度（元素个数）；
+	    非连续数组arr.length返回最大索引+1，间断的部分则为undefined，尽量不要创建非连续数组</li>
+		<li> 可以使用arr.length=3修改数组长度，长度比原来大将会空着，比原来小将会删除多余的</li>
+		<li> push()：向数组末尾添加一个或多个元素，并返回新的数组长度</li>
+		<li> unshift()：向数组开头添加一个或多个元素，并返回新的数组长度</li>
+		<li> pop()：该方法删除数组最后一个元素，将被删除的元素返回</li>
+		<li> shift()：该方法删除数组第一个元素，将被删除的元素返回</li>
+		<li> forEach(function(value,index,obj){回调})：遍历数组，将数组元素、索引、数组对象 作为函数实参传入（仅支持IE8以上浏览器）</li>
+		<li>slice(start, end)：从数组提取指定元素，不会改变原数组，返回截取到的元素封装的新数组，包含头不包含尾</li>
+		<li>splice(index, many， ...add):删除原数组中指定元素并添加新的元素，从index开始删除many个，然后在index插入新的n个元素，并将删除的元素作为返回值返回
+		<li>concat():方法用于连接两个或多个数组，参数为数组或者元素（可变数组），能自动识别，如果是数组，则链接数组中的元素</li>
+		<li>join():方法用于把数组中的所有元素放入一个字符串。元素是通过指定的分隔符进行分隔的。</li>
+		<li>reverse() 颠倒数组中元素的顺序。 </li>
+		<li>sort() 对数组的元素进行排序(升序),如果元素为数字，也会按Unicode编码排序（字符串排序）；
+		也可以通过sort方法回调参数指定排序规则</li>
+	</ul>
+	<xmp>
+		var arr = new Array();   //创建数组方式1
+		var arr = new Array(1,2,3);
+		var arr = new Array(10); //创建长度为10的数组
+		var arr = [];            //创建数组方式2
+		var arr = [1，2，3，4，5];   //使用字面量创建数组方式3
+		arr[0] = 10;   //向数组中添加元素
+		arr[1] = "hello";
+		arr[2] = {name:"呵呵哒"};
+		arr[arr.length] = 10;  //使用这种方式可以避免非连续数组
+		arr.length=3;          //修改数组长度
+		console.log(arr[3]);   //undefined
+		
+		//排序
+		var arr = [3,2,11,5,2,6,12,21];
+		arr.sort(function(a,b){
+			<!--return a>b?1:(a<b)?-1:0-->
+			return a-b;   //升序a-b，降序b-a
+		});
+		console.log(arr.join());   //2,2,3,5,6,11,12,21
+	</xmp>
+	
+	<p class="lable"><span class="Keyword">运算符</span>
+		+   -  *  /   % 和更加复杂的算术运算，由Math对象的属性和函数实现：
+	</p>
+	<ul>
+		<li>Math.pow(2,53)   //2的53次幂</li>
+		<li>Math.round(.6)   //四舍五入</li>
+		<li>Math.ceil(.6)   //向上求整1</li>
+		<li>Math.floor(.6)   //向下求整0</li>
+		<li>Math.abs(-5)   //绝对值5</li>
+		<li>Math.max(x,y,z)   //最大值</li>
+		<li>Math.min(x,y,z)   //返回最小值</li>
+		<li>Math.random()     //大于等于0小于1.0的伪随机数</li>
+		<li>Math.PI           //π</li>
+		<li>Math.E            //e 自然对数的底数</li>
+		<li>Math.sqrt(3)      //3的平方根</li>
+		<li>Math.pow(3,1/3)   //3的立方根</li>
+		<li>Math.sin(0)       //三角函数：还有.cos  atan</li>
+		<li>Math.log(10)      //10的自然对数</li>
+		<li>Math.log(100)     //以10为底100的对数</li>
+		<li>Math.log(512)     //以2为底512的对数</li>
+		<li>Math.exp(3)       //e的三次幂</li>
+	</ul>
+	
+	<p class="lable"><span class="Keyword">日期和时间</span>
+	</p>
+	<xmp>
+		var then = new Date(2011, 0, 1);    //2011年1月1日
+		var later = new Date(2011, 0, 1, 17, 10, 30);  
+		var now = new Date();  
+		var elapsed = now - then;    //日期剑法：计算时间间隔的毫秒数
+		later.getFullYear();         //2011
+		later.getMonth();            //0  从0开始计数的月份
+		later.getFullYear();         //2011
+		later.getDate();             //1 从1开始计数的天数
+		later.getDay();              //5 得到星期几  0表示星期日，5代表星期一
+		later.getHours();            //当地时间17：5pm
+		later.getUTCHours();         //使用UTC表示小时的时间，基于时区
+	  </xmp>
+	
+	<p class="lable"><span class="Keyword">二进制浮点数和四舍五入的错误</span>
+		实数有无数个，但JavaScript通过浮点数的形式之恩那个标识其中有限的个数，也就是说当JavaScript
+		中使用实数的时候，常常知识真实值的一个近似标识。JavaScript采用了IEEE-754浮点表示法（几乎所有现代编程语言所采用）
+		，这是一种二进制表示法，并不能精确的表示类似0.1这样简单的数字，只能是近似值。如下面Java中也存在这样的问题：
+		
+	</p>
+	  <xmp>
+		float a = .8f;
+        float b = .6f;
+        float c = .4f;
+        float x1 = a-b;
+        float x2 = b-c;
+        System.out.print("差值是否相等x1="+x1 +"    x2="+x2+"    x1==x2?"+(x1==x2));
+        //差值是否相等x1=0.20000000000000007    x2=0.19999999999999996    x1==x2?false
+	  </xmp>
+	  
+	
+	<p class="lable"><span class="Keyword">立即执行函数：</span>
+		函数定义完立即被调用，这种函数叫做立即执行函数，往往只会执行一次
+	</p>
+	<xmp>
+		(function(a,b){
+			alert("我是一个匿名函数···");
+			console.log("a="+a);
+			console.log("b="+b);
+		})(1,2)
+	</xmp>
+	
+	<p class="lable"><span class="Keyword">for/in语句枚举属性：</span>
+		for/in循环可以在循环体中遍历对象中所有可枚举的属性（包括自有属性和继承属性），
+		把属性名称赋值给循环变量。对象继承的内置方法不可枚举o.propertyIsEnumerable("toString") = false.
+	</p>
+	<xmp>
+		for(var n in obj){
+			console.log("属性名："+n+"   属性值："+obj[n]);
+		}
+	</xmp>
+	<button onclick="alert(typeof 5)"> typeof 5</button>
+	<button onclick="alert(typeof '5')"> typeof "5"</button>
+	<p class="lable"><span class="Keyword">in运算符：</span>
+		通过该运算符可以检测一个对象中是否含有指定的属性（包含原型对象中的），如果由返回true，否则false。语法"属性名" in 对象
+	</p>
+	<p class="lable"><span class="Keyword">hasOwnProperty()：</span>
+		使用对象的此方法来检测对象自身是否含有此属性，不包含原型对象中的。
+	</p>
+	
+	
+	<p class="lable"><span class="Keyword">作用域：</span>
+		指一个变量的作用范围，js中有两种作用域：
+	</p>
+	<ul>
+		<li>全局作用域：直接编写在script标签中的js代码，都在全局作用域，
+		全局作用域在页面打开时创建，在页面关闭时销毁。在全局作用域中有一
+		个全局对象window，它代表一个浏览器窗口，由浏览器创建，
+		我们可以直接使用。在全局作用域中创建的变量都会作为window对象的
+		属性保存，创建的方法都会作为window对象的方法。
+		使用var声明的变量， 会在所有代码执行之前被声明（但不会赋值）。
+		使用函数声明形式创建的函数function 函数(){}会在所有代码执行之前就被创建，
+		可以在函数声明前调用。但使用函数表达式var fun = function(){}创
+		建的函数不会被提前声明，必须在声明后调用。全局作用域的变量和函数在页面的任意部分都能访问</li>
+	<xmp>
+		var a = 10;
+		function fun(){
+			console.log("我是fun函数")
+		}
+		console.log(window.a);
+		window.fun();
+		window.alert("hello");
+	</xmp>
+	
+	<li>函数作用域：调用函数时创建函数作用域，函数执行完毕以后，函数作用域销毁。
+	每调用一次函数就会创建一个函数作用域，他们之间是相互独立的</li>
+	</ul>
+	
+	
+	<p class="lable"><span class="Keyword">构造函数：</span>
+		构造函数就是一个普通的函数，创建方式和普通函数没有区别，不同的是构造函数习惯上首字母大写。
+	</p>
+	
+	<p class="lable">
+		构造函数执行流程：
+	</p>
+	<ol type="1">
+		<li>立刻创建一个新的对象</li>
+		<li>将新建的对象设置为函数中的this，在构造函数中可以使用this引用新建的对象</li>
+		<li>逐行执行函数中的代码</li>
+		<li>将新建的对象作为返回值返回</li>
+	</ol>
+	<xmp>
+	function Person(){
+		this.name = "孙悟空";
+	}
+	var person = new Person();
+	</xmp>
+	
+	<p class="lable"><span class="Keyword">原型对象prototype：</span>
+		我们所创建的每一个函数，解析器都会向函数中添加一个属性prototype，这个属性对应着一个对象，这个对象就是
+		原型对象。如果函数作为普通函数调用prototype没有任何作用。当函数以构造函数的形式调用时，
+		它所创建的对象中都会有一个隐含的属性指向该构造函数的原型对象，我们可以通过__proto__来访问该属性。
+		
+	</p>
+	<p class="lable">
+		可以将类中共用的属性和方法统一添加到构造函数的原型对象中，这样不用分别为每个对象添加，
+		也不会影响全局作用域，避免每个对象中都会有重复的代码，相当于java的static用法。原型类
+		中的方法和属性可以直接被对象调用，如果对象有与原型中重名的属性和方法，则有限调用自己的。
+	</p>
+	<p class="lable">
+		当使用一个对象的属性和方法时，会现在自身中寻找，自身没有再去原型对象中找，原型对象中没有
+		就会去原型对象的原型对象中找，直到找到Object对象的原型。如果Object对象的原型中没有就没了。
+		Object对象的原型没有原型对象了。
+	</p>
+	
+	<xmp>
+	function Person(name){
+		this.name = name;
+	}
+	//向原型中添加sayName方法
+	Person.prototype.sayName = function(){
+		alert("hello every one,i am "+this.name);
+	}
+	var person = new Person();
+	person.sayName();
+	console.log(person.__proto__.__proto__);//原型对象的原型对象，只有两级
+	</xmp>
+	
+	<p class="lable"><span class="Keyword">toString()：</span>
+		toString()方法在对象的原型的原型中（Object的原型中），可以在对象的原型中重写此方法：
+	</p>
+	
+	<xmp>
+	function Person(name){
+		this.name = name;
+	}
+	Person.prototype.toString = function(){
+		return "Person[name="+this.name+"]"
+	}
+	</xmp>
+	
+	
+	<p class="lable"><span class="Keyword">call() & apply()：</span>
+		都是函数对象的方法，需要函数对象调用。调用这两个方法会执行函数，可以指定一个对象为参数，
+		此时对象将成函数执行时的this。相当于java的反射性质method.invoke(obj,...args)。
+		
+	</p>
+	
+	<xmp>
+	function fun(a, b){
+		alert(this.name+a+b);
+	}
+	fun.call(new Person("小许"),1,2);
+	fun.apply(new Person("小许"),[1,2]);  //参数需要封装为数组
+	</xmp>
+	
+	
+	<p class="lable"><span class="Keyword">this：</span>
+	</p>
+	<ul>
+		<li>以函数形式调用时，this代表window</li>
+		<li>以方法形式调用时，this时调用方法的对象</li>
+		<li>以构造方法new Person()形式调用时，Person()方法中this代表被创建的对象</li>
+		<li>调用方法对象的call()和apply()方法时，方法中this代表传入的参数对象</li>
+	</ul>
+	
+	
+	<p class="lable"><span class="Keyword">arguments：</span>
+		调用函数时，浏览器每次都会传递进两个隐含的参数（函数上下文对象this，封装实参的对象argments）。
+		arguments是一个类数组对象，但不是数组，它可以通过索引还能arguments[index]操作数据，还能arguments.length获取长度。
+		arguments有一个属性，arguments.callee对应一个函数对象，就是当前调用的这个函数的对象。
+	</p>
+
+
+	<p class="lable"><span class="Keyword">正则表达式：</span>
+		语法：var reg = new RegExp("正则表达式", "匹配模式"); 匹配模式可以是:
+		i忽略大小写、g全局匹配模式。exec() 检索字符串中指定的值，返回找到的值，并确定其位置。
+		test() 检索字符串中指定的值,返回 true 或 false。 
+	</p>
+	<xmp>
+			var regExp = new RegExp("a");
+		var reg = /a/i;   //var reg = /正则表达式/匹配模式；使用字面量来创建正则表达式更加简单，使用构造函数创建更加灵活
+		console.log(reg.test("abc"))
+		//使用|表示或者的意思
+		reg = /a|b|c/;
+	    //使用[]表示或者的意思,[ab] == a|b
+		reg = /[abc]/;
+		//[a-z]任意小写字母
+		//[A-Z]任意大写字母
+		//[A-z]任意字母
+		//[0-9]任意数字
+		//以a开头，中间是任意字母，以c结尾 
+		reg = /a[A-z]c/;
+		//[^ ]除了，判断字符串中是否有除了ab以外的东西
+		reg = /[^ab]/;
+		
+		/**字符串支持正则的方法*/
+		var str = "3h4jj5i5i9f0f98k23l00"
+		//split() 根据任意字母差分字符串"3,4,,5,5,9,0,98,23,00"
+		var result = str.split(/[A-z]/);
+		//search()  查找字符串中5开头后面跟任意字母的位置
+		result = str.search(/5[A-z]/);
+		//match() 将字符窗中符合条件的内容提取出；默认只会找到第一个然后停止，可以设置全局匹配搜索所有内容
+		result = str.match(/5[A-z]/ig);  //不区分大小写全局匹配
+		//replace() 替换
+		result = str.replace(/5[A-z]/ig, "$");
+		
+		/**正则语法*/
+		/*量词*/
+		// {n}：量词前边的一个内容正好出现n次
+		// {m,n} ：出现m-n次
+		// {m,}:出现m次以上
+		reg = /1a{3}/;    //a出现3次
+		// + : 至少一个，相当于{1,}
+		// * : 0个或多个，相当于{0,}
+		// ? : 0个或1个，相当于{0,1}
+		// ^ : 以什么开头
+		reg = /^a/;     //以a开头
+		// $ : 以什么结尾
+		reg = /^a$/;    //只能是一个a
+		// . ：表示任意字符，如果要检查字符串中是否含有.要用\转义
+		reg = /\./;     //表示.
+		reg = /\\/;     //表示\
+		// \ : 转义，如果用字面量创建正则，只写一个\；如果是构造方法，需要写两个\\
+		reg = new RegExp("\\.");
+		
+		/**
+		 * \w : 任意字母、数字、_ [A-z0-9_]
+		 * \W : 除了字母、数字、_ [^A-z0-9_]
+		 * \d : 任意数字[0-9]
+		 * \D : 除了数字[^0-9]
+		 * \s : 空格
+		 * \S : 除了空格
+		 * \b : 单词边界  reg = /\bchild\b/  是否有child这个单词
+		 * \B : 除了单词边界
+		 */
+		
+		
+		/**
+		 * 手机号规则：
+		 * 1 3 973612333
+		 * 以1开头，第二位3-9任意，后面任意9个数字
+		 */
+		reg = /^1[3-9][0-9]{9}$/;
+		/**
+		 * 去除开头和结尾空格
+		 */
+		var str = "        he llo      ";
+		str = str.replace(/^\s*|\s*$/g, "");
+		/**
+		 * 邮箱规则
+		 * 任意数字字母下划线 .任意字母数字下划线 @ 任意字母数字 .  任意字母（2-5）位 . 任意字母（2-5）位
+		 */
+		reg = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
+		
+		console.log(str);
+	</xmp>
+	
+	
+	<p class="lable"><span class="Keyword">JSON：</span>
+		JSON是js中的对象，可分为json对象{}和json数组[]。JSON中允许的值：
+		字符串、数值、布尔值、null、对象、数组。JSON在IE7中未定义，如果要兼容
+		IE7及以下的JSON操作，可以通过引入一个外部的js文件来处理：
+		<script type="text/javascript" src="js/json2.js"></script>
+	</p>
+	<xmp>
+		//兼容 IE7及以下的JSON操作
+		<script type="text/javascript" src="js/json2.js"></script>
+		
+		//创建一个js对象
+		var obj = {name:"孙悟空", age:18, gender:"男"};
+		//创建一个js对象(对象的属性名可以带双引号和单引号，也可以不带)
+		var obj = {"name":"孙悟空", "age":18, "gender":"男"};
+		
+		//json字符串中，属性名必须带双引号
+		var jsonStr = '{"name":"孙悟空", "age":18, "gender":"男"}';
+		//字符串转成对象
+		var o = JSON.parse(jsonStr);
+		console.log(o.name);
+		
+		//json对象转字符串
+		var str = JSON.stringify(obj);
+		
+	</xmp>
+	
+	
+	<p class="lable"><span class="Keyword">eval()：</span>
+		这个函数可以用来执行一段字符串形式的JS代码，并将执行结果返回。
+		如果使用eval()执行的字符串中含有{}，他会将{}当成是代码块，
+		如果不希望将其当成代码块解析，则需要在字符串前后各加一个()。
+		eval()函数功能强大，可以直接执行一个字符串中的js代码，但是
+		开发中尽量不要使用，性能差，具有安全隐患
+	</p>
+	<xmp>
+		
+		var str2 = "alert('hello')";
+		//执行字符串中的js
+		eval(str2);
+		
+		var str = "{"name":"孙悟空", "age":18, "gender":"男"}";
+		
+		var obj = eval("("+str+")");
+	</xmp>
+	
+	
+	
+	
+	</body>
+
+<html/>
+
+

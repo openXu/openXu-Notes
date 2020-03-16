@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>JS高级</title>
+		<link rel="stylesheet" type="text/css" href="../../css/hello.css" />
+		<script type="text/javascript">
+	 	</script>
+	<head/>
+
+	<body>
+
+
+	<h2>数据类型</h2>
+	
+	<p class="lable"><span class="Keyword">数据类型：</span>
+		js数据类型可分为基本（值）类型和对象（引用）类型：
+	</p>
+	<p class="lable">
+		基本类型：
+	</p>
+	<ul>
+		<li>string：字符串</li>
+		<li>number：数字</li>
+		<li>boolean：true/false</li>
+		<li>undefined：undefined</li>
+		<li>null：null</li>
+	</ul>
+	<p class="lable">
+		对象类型：
+	</p>
+	<ul>
+		<li>Object：任意对象</li>
+		<li>Function：一种特别的对象（可执行）</li>
+		<li>Array：一种特别的对象（数值下标，内部数据是有序的）</li>
+	</ul>
+	
+	<p class="lable"><span class="Keyword">判断</span>
+	</p>
+	<ul>
+		<li>typeof：返回数据类型的字符串表达，可以判断undefined/number/string/boolean</li>
+		<li>instanceof：判断对象的具体类型</li>
+		<li>===：全等，可以判断undefined/null</li>
+	</ul>
+	
+	<xmp>
+		
+		//1. 基本
+		var a;
+		//undefined "undefined" true true
+		console.log(a, typeof a, typeof a==="undefined", a===undefined);
+		//false
+		console.log(undefined==="undefined");
+		
+		//true
+		a = 4;
+		console.log(typeof a==="number");
+		a = "haha";
+		console.log(typeof a==="string");
+		a = true;
+		console.log(typeof a==="boolean");
+		
+		a = null;
+		//"object"	true
+		console.log(typeof a, a===null);
+		
+		//2. 对象
+		var b1 = {
+			b2:[1, "abc", console.log],
+			b3:function(){
+				console.log('b3');
+				return function(){
+					retrun "haha";
+				}
+			}
+		}
+		//true false
+		console.log(b1 instanceof Object, b1 instanceof Array)
+		//true true
+		console.log(b1.b2 instanceof Array, b1.b2 instanceof Object)
+		//true true
+		console.log(b1.b3 instanceof Function, b1.b3 instanceof Object)
+		//true
+		console.log(typeof b1.b3==="function");
+		
+		//执行b1对象的b2属性的第三个元素方法
+		b1.b2[2](4);
+		//打印 执行b1对象的b3方法返回的方法 的 返回值
+		console.log(b1.b3()());
+		
+	</xmp>
+	
+	
+	<p class="lable"><span class="Keyword">相关问题：</span>
+	</p>
+	<p class="lable">
+		<b>undefined和null的区别</b>：undefined代表定义未赋值；null定义并赋值了，只是值为null。
+	</p>
+	<p class="lable">
+		<b>什么时候给变量赋值为null？</b>：初始赋值，表明将要赋值为对象；结束使用对象时，让对象成为垃圾对象方便回收。
+	</p>
+	<p class="lable">
+		<b>区别数据类型和变量类型</b>：数据类型指基本类型和对象类型；变量类型（内存值类型）分为基本类型（保存基本类型的数据） 和 引用类型（保存对象地址值）。
+	</p>
+
+	<!---->
+	
+	<h2>对象</h2>
+	
+	<p class="lable"><span class="Keyword">对象属性的调用：</span>
+		调用对象的属性有两种方式：对象.属性名  or  对象['属性名']。第一种方式调用更为方便，
+		但是有时候不能使用，第二种方式没有限制。当属性名包含特殊字符（-、空格），属性名为变量时必须
+		使用['属性名']的方式调用。
+	</p>
+	
+	<xmp>
+		var p = {};
+		//给p对象添加一个属性：content-type:text/json
+		//p.content-type = 'text/json';   属性名包含特殊字符不能用
+		p['content-type'] = 'text/json';
+		console.log(p['content-type']);
+		
+		//属性名不确定
+		var propName = 'myAge';
+		var value = 18;
+		//p.propName = value;   //不能用
+		p[propName] = value;
+		console.log(p[propName]);
+		
+	</xmp>
+	
+	
+	<p class="lable"><span class="Keyword">函数：</span>
+		为了提高代码复用性，将特性功能的相关代码封装起来就形成了函数。函数调用可通过下面的方式：
+	</p>
+	<ul>
+		<li><b>test()</b>：直接调用</li>
+		<li><b>obj.test()</b>：通过对象调用</li>
+		<li><b>new test()</b>：new 调用</li>
+		<li><b>test.call/apply(obj)</b>：临时让test成为obj的方法进行调用</li>
+	</ul>
+	
+	<xmp>
+		/*函数声明*/
+		function func1(){
+			console.log("func1");
+		}
+		//表达式
+		var func2 = function(){
+			console.log("func2");
+		}
+		//调用
+		func1();
+		func2();
+		
+		var obj = {name:'haha'};
+		function test2(){
+			this.age = 18
+			console.log(this.name);
+		}
+		//obj.test2();    不能直接调用，obj中没有test2方法
+		//可以让一个函数成为指定任意对象的方法进行调用
+		test2.call(obj)
+		console.log(obj.age);
+	</xmp>
+	
+	
+	
+	</body>
+
+<html/>
+
+

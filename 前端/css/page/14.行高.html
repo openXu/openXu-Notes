@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>行高</title>
+		
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style type="text/css">
+			
+		</style>
+	<head/>
+	
+
+	<body>
+	
+	<p class="lable">CSS并没有为我们提供一个直接设置行间距的方式，
+	我们只能通过设置行高来间接设置行间距，行高越大行距越大。</p>
+	
+	<p class="lable">使用line-height来设置行高，文字会默认在行高中垂直居中显示，行间距 = 行高 - 字体大小</p>
+	
+	<p class="lable"><span class="Keyword">line-height:</span>
+		设置行高。
+		接受整数px；
+		百分比：根据字体大小计算行高100%相当于行间距为0；
+		一个数值：字体大小的倍数</p>
+	<p class="lable">对于单上文本来说，可以将行高设置为和父元素的高度一样，这样可以实现单行文本在父元素中垂直居中显示</p>
+	
+	<p class="lable">在font中也可以指定行高，在字体大小后可以添加/行高来指定，该值可选，如果不指定则会使用默认值，如果先设置了行高，然后font中又未设置，则先设置的行高不起效</p>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+	  	<p class="lable"
+		style="font-size: 20px;line-height: 40px;">
+		顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶</p>
+	
+		<div style="width: 100px; height: 100px; background-color: #bfa;">
+			<p class="lable" style="line-height: 100px;">我是文本</p>
+		</div>
+		
+		<p class="lable"
+			style="line-height:40px; <!--此处设置无效，可以挪font下面去-->
+			font: 20px/10px;">
+			顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶</p>
+	
+	 </xmp>
+	 
+	<p class="show">效果展示：</p>
+	
+	<p class="lable"
+		style="font-size: 20px;line-height: 40px;">
+		顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶</p>
+	
+	<div style="width: 100px; height: 100px; background-color: #bfa;">
+		<p class="lable" style="line-height: 100px;">我是文本</p>
+	</div>
+	
+	<p class="lable"
+		style="line-height:40px; font: 20px/10px;">
+		顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶</p>
+	
+	
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

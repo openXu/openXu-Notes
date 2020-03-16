@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>display和visibility</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			.a1{
+				background-color: yellow;
+				/*a是内联元素，不支持设置width和height*/
+				width: 200px;
+				height: 200px;
+				/*display可以修改元素的类型，如果设置为block块元素，上面的宽高设置就起作用了*/
+				display: inline-block;
+			}
+			.a2{
+				background-color: red;
+				/*a是内联元素，不支持设置width和height*/
+				width: 200px;
+				height: 200px;
+				display: inline-block;
+				visibility: hidden;
+			}
+		</style>
+		
+	<head/>
+
+	<body>
+		
+	<p class="lable"><span class="Keyword">display:</span>通过display设置元素应该生成的框的类型，可选值：</p>
+	<ul>
+		<li>none:此元素不会被显示，也不占位置</li>
+		<li>inline:默认。此元素会被显示为内联元素，元素前后没有换行符</li>
+		<li>block:此元素将显示为块级元素，此元素前后会带有换行符</li>
+		<li>inline-block:行内块元素（比如img）。（CSS2.1 新增的值），
+			即既有行内元素的特点又有块元素的特点，既可以设置宽高，又不会独占一行</li>
+		<li>other:其他请参考文档</li>
+	</ul>
+	
+	<p class="lable"><span class="Keyword">visibility:</span>规定元素是否可见，可选值：</p>
+	
+	<ul>
+		<li>visible:默认值。元素是可见的</li>
+		<li>hidden:元素是不可见的</li>
+		<li>collapse:当在表格元素中使用时，此值可删除一行或一列，
+			但是它不会影响表格的布局。被行或列占据的空间会留给其他内容使用。
+			如果此值被用在其他的元素上，会呈现为 "hidden"</li>
+	</ul>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		.a1{
+			background-color: yellow;
+			/*a是内联元素，不支持设置width和height*/
+			width: 200px;
+			height: 200px;
+			/*display可以修改元素的类型，如果设置为block块元素，上面的宽高设置就起作用了*/
+			display: inline-block;
+		}
+		.a2{
+			background-color: red;
+			/*a是内联元素，不支持设置width和height*/
+			width: 200px;
+			height: 200px;
+			display: inline-block;
+			visibility: hidden;
+		}
+		<!--html-->
+		<a class="a1"  href="#">我是一个大大的超链接</a>
+		<span>哈哈哈哈哈</span>
+		
+		<br />
+		
+		<a class="a2"  href="#">我是一个大大的超链接</a>
+		<span>哈哈哈哈哈</span>
+	 </xmp>
+	 
+	 
+	<p class="show">效果展示：</p>
+	
+	<a class="a1"  href="#">我是一个大大的超链接</a>
+	<span>哈哈哈哈哈</span>
+	
+	<br />
+	
+	<a class="a2"  href="#">我是一个大大的超链接</a>
+	<span>哈哈哈哈哈</span>
+	
+	</body>
+
+<html/>
+
+

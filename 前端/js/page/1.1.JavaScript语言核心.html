@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>JavaScript语言核心</title>
+		<link rel="stylesheet" type="text/css" href="../../css/hello.css" />
+		
+		
+	<head/>
+
+	<body>
+
+	<h2>JavaScript语言核心</h2>
+	
+	<p class="lable"><span class="Keyword">初始化表达式</span>
+		上面代码中通过[]定义数组元素和通过{}定义对象属性名和属性值之间的映射关系的语法称为初始化表达式。
+		表达式是JavaScript中的一个短语，这个短语可以通过运算得出一个值。
+	</p>
+	
+	<p class="lable"><span class="Keyword">函数</span>
+		带有名称和参数的JavaScripte代码段，可以一次定义多次调用。
+		当将函数和对象合写在一起时，函数就变成了<span class="Keyword">方法</span>（method）。
+	</p>
+	
+	<p class="sample">示例：</p>
+	<pre>
+		<code>
+ 	/*1、变量*/
+ 	var x;   //声明变量x
+ 	x = 0;   //变量赋值
+ 	window.console.log("变量赋值结果"+x);   //通过变量获取值
+ 	
+ 	/*2、数据类型*/
+ 	x = 1;
+ 	x = 0.01;
+ 	x = "hello js";
+ 	x = 'JavaScript';
+ 	x = true;
+ 	x = false;
+ 	x = null;     //null是一个特殊的值，意思是“空”
+ 	x = undefined;//undefined和null非常类似
+ 	
+ 	/*3、对象*/
+ 	var book = {              //对象是由花括号括起来的
+ 		topic : "JavaScript", //属性topic的值是"JavaScript"
+ 		fat : true 
+ 	}                         //对象结束
+ 	 
+ 	//通过"."或者"[]"来访问对象属性
+ 	window.console.log("book.topic="+book.topic);            
+ 	window.console.log("book.topic="+book["fat"]);  
+ 	
+ 	book.author = "openXu";   //通过赋值创建一个新的属性
+ 	book.contents = {};       //{}是一个空对像，它没有属性
+ 	
+ 	/*4、数组*/
+ 	var primes = [2,3,5,7];   //拥有四个值的数组
+ 	primes[0];                //2,索引为0的元素
+ 	window.console.log("primes[0]="+primes[0]);  
+	window.console.log("primes.length="+primes.length);  	
+ 	primes[4] = 9;            //通过赋值添加新元素
+ 	var empty = [];           //空数组，有0个元素
+ 	
+ 	//数组和对象中都可以包含另一个数组或者对象
+ 	var points = [
+ 		{x:0, y:0},           //数组的元素可以是对象
+ 		{x:1, y:1}
+ 	]
+ 	var data = {
+ 		trial1 : [[1,2],[3,4]],   //对象的属性可以是数组
+ 		trial2 : [[2,3],[4,5]]    //数组的元素可以是数组（多维）
+ 	}
+ 	
+ 	
+ 	/*5、函数*/
+ 	function plus1(x){
+ 		return x+x;
+ 	}
+ 	plus1(5);
+ 	
+ 	var square = function(x){
+ 		return x*x;
+ 	}
+ 	square(plus1(5));            // =>100  在一个表达式中调用两个函数
+ 	
+ 	
+ 	/*6、方法*/
+ 	var a = [];
+ 	a.push(1,2,3);  //push()方法向数组中添加元素
+ 	a.reverse();    //将数组元素次序反转方法
+ 	
+ 	//定义方法
+ 	points.dist = function(){
+ 		var p1 = this[0];
+ 		var p2 = this[1];
+ 		var a = p2.x - p1.x;
+ 		var b = p2.y - p1.y;
+ 		return Math.sqrt(a*a+b*b);   //平方根
+ 	}
+ 	points.dist();         
+ 	
+ 	/*7、控制语句*/
+ 	function abs(x){
+ 		if(x>=0){
+ 			return x;
+ 		}else{
+ 			return -x;
+ 		}
+ 	}
+ 	function factorial(n){
+ 		var product = 1;
+ 		while(n>1){
+ 			product *= n;
+ 			n --;
+ 		}
+ 		return product;
+ 	}
+ 	function factorial2(n){
+ 		var i, product = 1;
+ 		for(i = 2; i<n; i++)
+ 			product *= i;
+ 		return product;
+ 	}
+		</code>
+	</pre>	
+
+	<script>
+	 	/*1、变量*/
+	 	var x;   //声明变量x
+	 	x = 0;   //变量赋值
+	 	window.console.log("变量赋值结果"+x);   //通过变量获取值
+	 	
+	 	/*2、数据类型*/
+	 	x = 1;
+	 	x = 0.01;
+	 	x = "hello js";
+	 	x = 'JavaScript';
+	 	x = true;
+	 	x = false;
+	 	x = null;     //null是一个特殊的值，意思是“空”
+	 	x = undefined;//undefined和null非常类似
+	 	
+	 	/*3、对象*/
+	 	var book = {              //对象是由花括号括起来的
+	 		topic : "JavaScript", //属性topic的值是"JavaScript"
+	 		fat : true 
+	 	}                         //对象结束
+	 	 
+	 	//通过"."或者"[]"来访问对象属性
+	 	window.console.log("book.topic="+book.topic);            
+	 	window.console.log("book.topic="+book["fat"]);  
+	 	
+	 	book.author = "openXu";   //通过赋值创建一个新的属性
+	 	book.contents = {};       //{}是一个空对像，它没有属性
+	 	
+	 	/*4、数组*/
+	 	var primes = [2,3,5,7];   //拥有四个值的数组
+	 	primes[0];                //2,索引为0的元素
+	 	window.console.log("primes[0]="+primes[0]);  
+		window.console.log("primes.length="+primes.length);  	
+	 	primes[4] = 9;            //通过赋值添加新元素
+	 	var empty = [];           //空数组，有0个元素
+	 	
+	 	//数组和对象中都可以包含另一个数组或者对象
+	 	var points = [
+	 		{x:0, y:0},           //数组的元素可以是对象
+	 		{x:1, y:1}
+	 	]
+	 	var data = {
+	 		trial1 : [[1,2],[3,4]],   //对象的属性可以是数组
+	 		trial2 : [[2,3],[4,5]]    //数组的元素可以是数组（多维）
+	 	}
+	 	
+	 	
+	 	/*5、函数*/
+	 	function plus1(x){
+	 		return x+x;
+	 	}
+	 	plus1(5);
+	 	
+	 	var square = function(x){
+	 		return x*x;
+	 	}
+	 	square(plus1(5));            // =>100  在一个表达式中调用两个函数
+	 	
+	 	
+	 	/*6、方法*/
+	 	var a = [];
+	 	a.push(1,2,3);  //push()方法向数组中添加元素
+	 	a.reverse();    //将数组元素次序反转方法
+	 	
+	 	//定义方法
+	 	points.dist = function(){
+	 		var p1 = this[0];
+	 		var p2 = this[1];
+	 		var a = p2.x - p1.x;
+	 		var b = p2.y - p1.y;
+	 		return Math.sqrt(a*a+b*b);   //平方根
+	 	}
+	 	points.dist();         
+	 	
+	 	/*7、控制语句*/
+	 	function abs(x){
+	 		if(x>=0){
+	 			return x;
+	 		}else{
+	 			return -x;
+	 		}
+	 	}
+	 	function factorial(n){
+	 		var product = 1;
+	 		while(n>1){
+	 			product *= n;
+	 			n --;
+	 		}
+	 		return product;
+	 	}
+	 	function factorial2(n){
+	 		var i, product = 1;
+	 		for(i = 2; i<n; i++)
+	 			product *= i;
+	 		return product;
+	 	}
+	 	
+	 </script>
+	</body>
+
+<html/>
+
+

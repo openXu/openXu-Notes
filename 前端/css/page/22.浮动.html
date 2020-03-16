@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>浮动</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			div{
+				width: 100px;
+				height: 100px;
+			}
+			.div1{
+				background-color: red;
+				float: left;
+			}
+			.div2{
+				background-color: blue;
+				float: left;
+			}
+			.div3{
+				background-color: green;
+				float: left;
+			}
+		</style>
+		
+	<head/>
+
+	<body>
+		
+	<p class="lable">
+		块元素在文档流中默认垂直排列，所以这三个dic自上至下一次排开。
+		如果希望块元素在页面中水平排列，可以是块元素脱离文档流，
+		使用float来使元素浮动，从而脱离文档流。
+	</p>
+		
+	<p class="lable"><span class="Keyword">float:</span>
+		规定框是否应该浮动。
+	</p>
+	<ul>
+		<li>left	元素向左浮动。</li>
+		<li>right	元素向右浮动。</li>
+		<li>none	默认值。元素不浮动，并会显示在其在文本中出现的位置。</li>
+	</ul>
+	
+	<p class="lable">
+		当为一个元素设置浮动以后（float属性是一个非none的值），元素
+		会立即完全脱离文档流，脱离文档流后，它下面的元素会向上移动，
+		元素浮动以后，会尽量向页面左上或者右上漂浮，直到遇到父元素的边框或者其他的浮动元素。
+	</p>
+	<p class="lable">
+		如果浮动元素上边是一个没有浮动的块元素，则浮动元素不会超过块元素。
+	</p>
+	<p class="lable">
+		浮动的元素如果在一行展示不下，会换行；
+		浮动元素不会超过他上边的兄弟元素，最多只会一边齐
+	</p>
+	
+	<p class="lable">
+		浮动的元素不会遮盖文字，文字会自动环绕在浮动元素的周围，
+		所以我们可以通过浮动来设置位子环绕图片的效果。
+	</p>
+	
+	<p class="lable">
+		块元素脱离文档流后，高度和宽度都是包裹内容。
+		内联元素脱离文档流后，会变成块元素，可以设置宽高。
+	</p>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		div{
+			width: 100px;
+			height: 100px;
+		}
+		.div1{
+			background-color: red;
+			float: left;
+		}
+		.div2{
+			background-color: blue;
+			float: left;
+		}
+		.div3{
+			background-color: green;
+			float: left;
+		}
+		<!--html-->
+		<div class="div1">
+		</div>
+		<div class="div2">
+		</div>
+		<div class="div3">
+		</div>
+	 </xmp>
+	 
+	 
+	<p class="show">效果展示：</p>
+	<div class="div1">
+	</div>
+	<div class="div2">
+	</div>
+	<div class="div3">
+	</div>
+	<p>
+		我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭
+		我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭
+		我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭
+		我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭我们一起去吃饭
+	</p>
+	
+	<span style="background-color: gray;
+		width: 100px;
+		height: 100px;
+		float: left;">我是span</span>
+	
+	
+	</body>
+
+<html/>
+
+

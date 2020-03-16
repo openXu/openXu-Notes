@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>雪碧图的制作和使用</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			
+			.box1{
+				width: 453px;
+				height: 380px;
+				background-image: url(../img/css_xuebi_image.png);
+			}
+			
+			.box2{
+				width: 268px;
+				height: 189px;
+				background-image: url(../img/css_xuebi_image.png);
+			}
+			.box3{
+				width: 177px;
+				height: 170px;
+				background-image: url(../img/css_xuebi_image.png);
+				/*背景位移*/
+				background-position: -102px -207px;
+			}
+		</style>
+	<head/>
+
+	<body>
+		
+	<p class="lable"><span class="Keyword">雪碧图</span>
+		多张图片整合起来，使用时显示其一部分
+	</p>
+	
+	
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		.box1{
+				width: 453px;
+				height: 380px;
+				background-image: url(../img/css_xuebi_image.png);
+			}
+			
+			.box2{
+				width: 268px;
+				height: 189px;
+				background-image: url(../img/css_xuebi_image.png);
+			}
+			.box3{
+				width: 177px;
+				height: 170px;
+				background-image: url(../img/css_xuebi_image.png);
+				/*背景位移*/
+				background-position: -102px -207px;
+			}
+		<!--html-->
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<div class="box3"></div>
+	 </xmp>
+	 
+	<p class="show">效果展示：</p>
+	
+	
+	<div class="box1"></div>
+	<div class="box2"></div>
+	<div class="box3"></div>
+	
+	</body>
+
+<html/>
+
+

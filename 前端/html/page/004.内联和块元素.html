@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>内联和块元素</title>
+		<!--外部样式表-->
+		<link rel="stylesheet" type="text/css" href="../../css/hello.css" />
+	<head/>
+
+	<body>
+	
+	<h1>块元素和内联元素</h1>
+	
+	<h2>块元素</h2>
+	<h3>①. div</h3>
+     <p>div就是一个块元素，所谓块元素就是会独占一行的元素，无论他的内容有多少，他都会独占一整行;</p>
+     <p>常见的块元素还有 p 、h1、h2、h3...，这些块元素都是有语义的；</p>
+     <p>但是div没有语义就是一个纯粹的块元素，并且不会为它里面的元素设置任何默认样式；div元素主要用来对页面进行布局的。</p>
+    
+    
+     <p id="sample">示例:</p>
+     
+    <div style="background-color: red; width: 200px;">
+    	我是一个div
+    </div>
+    <div style="background-color: yellow; width: 200px;">
+    	我是一个div
+    </div>
+    
+    <p>我是一个p标签</p>
+    <p>我是一个p标签</p>
+    
+    <hr />
+    
+    <h3>②. span</h3>
+	<p>span是一个内联元素（行内元素）</p>
+	<p>所谓的行内元素，指的是只占自身大小的元素，不会占用一行；</p>
+	<p>常见的内联元素：a img iframe span</p>
+	<p>span没有任何语义，span标签专门用来选中文字，然后为文字设置样式</p>
+    
+    
+    <p id="sample">示例:</p>
+    
+    <span>我是一个span</span>
+    <span style="background-color: red; ">我是一个span</span>
+    <span>我是一个span</span>
+    
+    
+    
+    <p id="notice">③. 注意:</p>
+    <p>块元素主要用来做网页的布局，内联元素主要用来选中文本设置样式；
+    	一般情况下只使用块元素去包含内联元素，而不会使用内联元素去包含块元素。</p>
+    <p>a元素可以包含任意元素，除了它本身</p>
+    <p>p元素不可以包含任何其他的块元素</p>
+    <p>块元素和内联元素的概念在h5里面已经被去除了，h5中使用一个特别复杂的内容模型来代替</p>
+    
+    <p id="sample">示例:</p>
+    <xmp>
+    <a href="#"><a href="#">回到顶部</a></a>    <!--这是错误的-->
+    <p><div>xxxxx</div></p>                       <!--这是错误的-->
+    <p><p>xxxxx</p></p>                             <!--这是错误的-->
+    
+     <a href="#">         <!--正确，让点击事件范围宽一点-->
+    	<div style="background-color: yellow; width: 200px;">
+    		回到顶部
+    	</div>
+    </a>
+ 	</xmp>
+ 	
+    <a href="#">
+    	<div style="background-color: yellow; width: 200px;">
+    		回到顶部
+    	</div>
+    </a>
+    
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

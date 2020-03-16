@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>样式的继承</title>
+		
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		
+		<style type="text/css">
+			body{
+				font-size: 20px;
+			}
+		</style>
+	<head/>
+	
+	
+
+	<body>
+	
+	
+	<h1>样式的继承</h1>
+    <p>像儿子可以继承父亲的遗产一样，CSS中，祖先元素上的样式，也会被他的后代元素所继承</p>
+    <p>但并不是所有的样式都会被子元素所继承，比如：背景相关的样式都不会被继承；</p>
+   	<p>想要知道样式是否能被继承，可以查看css离线文档：</p>
+	<img src="../img/css_doc_extends_sample.jpg" />
+	
+
+	<p class="sample">示例：</p>
+	  <xmp>
+	  	 <div style="font-size: 20px;
+	 	background-color: pink;">
+	 	<p>哈哈哈哈哈哈哈哈</p>
+	 	<!--其实背景色不会被继承，但为什么p元素下的内容背景色变了？
+	 	因为默认的背景色是透明-->
+	 	<p>
+	 		xoxoxooxoxoxoxoxoxoxoxox<br />
+	 		<span>喜喜喜喜喜喜喜喜</span>
+	 	</p>
+	 </div>
+	 </xmp>
+	 
+	 <p class="show">效果展示：</p>
+	 <div style="font-size: 20px;
+	 	background-color: pink;">
+	 	<p>哈哈哈哈哈哈哈哈</p>
+	 	<p>
+	 		xoxoxooxoxoxoxoxoxoxoxox<br />
+	 		<span>喜喜喜喜喜喜喜喜</span>
+	 	</p>
+	 </div>
+	
+	
+	
+	
+	
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

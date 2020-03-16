@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>单位</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style type="text/css">
+		.box{
+			width: 200px;
+			height: 200px;
+			background-color: red;
+		}
+		.box1{
+			width: 100px;
+			height: 100px;
+			background-color: yellow;
+		}
+		.box2{
+			width: 50%;
+			height: 50%;
+			background-color: blue;
+		}
+		.box3{
+			font-size: 100px;
+			width: 3em;    /*相当于3*100 = 300px*/
+			height: 50%;
+			background-color: pink;
+		}
+	</style>
+		
+	<head/>
+	
+
+
+	<body>
+	
+	<h1>长度单位：</h1>
+	<p class="lable"><span class="Keyword">像素px</span>
+		：像素是我们在网页中使用的最多的一个单位，一个像素就相当于我们屏幕中的一个小点，
+		我们屏幕实际上就是由这些像素点构成的，但是这些像素点，是不能直接看见。
+		不同显示器一个像素的大小也不相同，显示效果越好越清晰，像素就越小，反之像素越大。</p>
+	
+	<p class="lable"><span class="Keyword">百分比%</span>
+		可以将单位设置为一个百分比形式，这样浏览器将会根据父元素的样式来计算该值。</p>
+	<p class="lable">使用百分比的好处是，当父元素的属性值发生变化时，
+		子元素也会按照比例发生改变，如果我们需要创建一个自适应的页面时，
+		经常使用百分比作为单位。</p>
+		
+		
+	<p class="lable"><span class="Keyword">em</span>
+		em和百分比类似，但是他是相对于当前元素的字体大小来计算的，1em = 1font-size</p>
+	<p class="lable">使用em时，当字体大小发生改变时，em也会随之改变，当设置字体相关的样式时，经常会使用em（相当于android的warp_content）。</p>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+	  	
+	  	<!--html-->
+		<div>
+			<div class="box">
+				<div class="box1"></div>
+				<div class="box2"></div>
+			</div>
+			<div class="box">
+				<div class="box3"></div>
+			</div>
+		</div>
+		
+	  	<!--css-->
+	  	.box{
+			width: 200px;
+			height: 200px;
+			background-color: red;
+		}
+		.box1{
+			width: 100px;
+			height: 100px;
+			background-color: yellow;
+		}
+		.box2{
+			width: 50%;
+			height: 50%;
+			background-color: blue;
+		}
+		.box3{
+			font-size: 100px;
+			width: 3em;    <!--相当于3*100 = 300px-->
+			height: 50%;
+			background-color: pink;
+		}
+	  	
+	 </xmp>
+	 
+	<p class="show">效果展示：</p>
+	
+	<div>
+		<div class="box">
+			<div class="box1"></div>
+			<div class="box2"></div>
+		</div>
+		<div class="box">
+			<div class="box3"></div>
+		</div>
+	</div>
+	
+		
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

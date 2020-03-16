@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>选择器</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		
+		<style type="text/css">
+			/*类选择器*/
+			.sample1{
+		      color: black;
+		      font-size: 13px;
+			}
+			.sample2{
+			      color: red;
+			      font-size: 14px;
+			}
+			
+			/*分组选择器，元素只需要满足选择器中某个*/
+			h6, #p1, .p2{
+		      background-color: gray;
+			}	
+			
+			/*复合选择器（交集选择器），元素需要同时满足选择器*/
+			span.p3{ 
+		    	background-color: yellow;
+			}
+			
+			
+			/*属性选择器*/
+			p[title]{   
+		    	background-color: yellow;
+			}
+			p[title="hello1"]{    
+			    background-color: blue;
+			}
+			p[title^="ab"]{    
+			    background-color: pink;
+			}
+			p[title$="d"]{    
+			    background-color: red;
+			}
+			p[title*="xx"]{    
+			    background-color: green;
+			}
+		</style>
+	<head/>
+
+	<body>
+	
+	
+	<h1>常用选择器</h1>
+	
+	<!--目录-->
+	
+	<a href="#index1">元素选择器</a><br />
+	<a href="#index2">id选择器</a><br />
+	<a href="#index3">类选择器</a><br />
+	<a href="#index4">通配选择器</a><br />
+	<a href="#index5">分组选择器</a><br />
+	<a href="#index6">复合选择器（交集选择器）</a><br />
+	<a href="#index7">属性选择器</a><br />
+	
+	 <br />
+	 <hr />
+	
+	 <p id="index1"><span class="Keyword">元素选择器：</span>通过元素选择可以选择页面中所有指定元素，为其设置样式</p>
+	 <p>语法：标签名{}</p>
+	 <p class="sample">示例：</p>
+	  <xmp>
+		h2{    
+		      color: red;
+		      font-size: 15px;
+		}
+		p{
+		      color: black;
+		      font-size: 15px;
+		}
+	 </xmp>
+	 
+	 <br />
+	 <hr />
+	 
+	 
+	 
+	 <p id="index2"><span class="Keyword">id选择器：</span>通过元素的id属性选中唯一的一个元素</p>
+	 <p>语法：#id属性值{}</p>
+	 <p class="sample">示例：</p>
+	  <xmp>
+	  	<!--html-->
+	  	<p id="p1">示例：</p>
+	  	<!--css-->
+		#p1{
+		      color: black;
+		      font-size: 15px;
+		}
+	 </xmp>
+	 
+	<br />
+	 <hr />
+	 
+	 
+	 
+	 <p id="index3"><span class="Keyword">类选择器：</span>通过元素的class属性值选中一组元素</p>
+	 <p>class属性和id属性类似，只不过class属性可以重复</p>
+	 <p>拥有相同class属性值的元素，我们说他们是一组元素</p>
+	 <p>可以同时为一个元素设置多个class属性值，多个值之间使用空格隔开，无先后顺序</p>
+	 <p><span class="notice">注意：</span>当一个元素设置多个class属性值时，后面定义的css选择器将被选中</p>
+	 <p>语法：.class属性值{}</p>
+	 <p class="sample">示例：</p>
+	  <xmp>
+	  	<!--html-->
+		<p class="sample1">锄禾日当午</p>
+	  	<p class="sample1">锄禾日当午</p>
+	  	<p class="sample2 sample1">锄禾日当午</p>  <!--由于下面css中sample2定义在后面，此处将设置为sample2的样式-->
+	  	<p class="sample2">锄禾日当午</p>
+	  	<!--css-->
+		.sample1{
+		      color: black;
+		      font-size: 13px;
+		}
+		.sample2{
+		      color: red;
+		      font-size: 14px;
+		}
+	 </xmp>
+
+	<p class="show">结果展示：</p>
+	
+ 	<p class="sample1">锄禾日当午</p>
+  	<p class="sample1">锄禾日当午</p>
+  	<p class="sample2 sample1">锄禾日当午</p>
+  	<p class="sample2">锄禾日当午</p>
+	
+	<br />
+	 <hr />
+	
+	
+	 <p id="index4"><span class="Keyword">通配选择器：</span>可以用来选中页面中的所有元素</p>
+	 <p>语法：*{}</p>
+	 <p class="sample">示例：</p>
+	  <xmp>
+		*{
+		     color: black;
+		     font-size: 13px;
+		}
+	 </xmp>
+	
+	
+	 <br />
+	 <hr />
+	
+	 <p id="index5"><span class="Keyword">分组选择器：</span>通过选择器分组可以同时选中多个选择器对用的元素</p>
+	 <p>语法：选择器1, 选择器2, ...选择器N{}</p>
+	 <p class="sample">示例：</p>
+	  <xmp>
+	  	<!--html-->
+	  	<h6>标题</h6>
+	  	<p id="p1">p标签id为p1</p>
+	  	<p class="p2">p标签class为p2</p>
+	  	<!--css-->
+		h6, #p1, .p2{
+		      background-color: yellow;
+		}
+	 </xmp>
+	 <p class="show">结果展示：</p>
+		
+	<h6>标题</h6>
+  	<p id="p1">p标签id为p1</p>
+  	<p class="p2">p标签class为p2</p>
+		
+	 <br />
+	 <hr />
+	
+	
+	 <p id="index6"><span class="Keyword">复合选择器（交集选择器）：</span>可以选中同时满足多个选择器的元素</p>
+	 <p>语法：选择器1选择器2选择器N{}</p>
+	 <p class="sample">示例：</p>
+	  <xmp>
+	  	<!--html-->
+		<p class="p3">p元素class为p3</p>
+	  	<span class="p3">span元素class为p3</p>
+	  	<span class="p4">span元素class为p4</p>
+	  	<p class="p5">p元素class为p5</p>
+	  	<!--css-->
+		span.p3{    <!--为class属性值为p3 的 span元素设置背景色-->
+		    background-color: yellow;
+		}
+		p#p1{       <!--对于id选择器，不建议使用复合选择器，因为id已经能唯一标识某个元素了-->
+		    background-color: yellow;
+		}
+	 </xmp>
+	 
+	 <p class="show">结果展示：</p>
+		
+	<p class="p3">p元素class为p3</p>
+  	<span class="p3">span元素class为p3</p>
+  	<span class="p4">span元素class为p4</p>
+  	<p class="p5">p元素class为p5</p>
+	
+	
+ 	<br />
+	 <hr />
+	
+	
+	 <p id="index7"><span class="Keyword">属性选择器：</span>可以根据元素中的属性或属性值来选取指定元素</p>
+	 <p>语法：<br/>
+	<ul>
+		<li class="lable">[属性名]{} 选取含有指定属性的元素</li>
+		<li class="lable">[属性名="属性值"]{} 选取含有指定属性值的元素</li>
+		<li class="lable">[属性名^="属性值"]{} 选取属性值已指定内容开头的元素</li>
+		<li class="lable">[属性名$="属性值"]{} 选取属性值已指定内容结尾的元素</li>
+		<li class="lable">[属性名*="属性值"]{} 选取属性值包含已指定内容的元素</li>
+	</ul>
+	 </p>
+	 <p class="sample">示例：</p>
+	  <xmp>
+	  	<!--html-->
+	  	<!--title属性：可以给任何标签指定，当鼠标移入到元素上时，元素中的title属性的值会作为提示文字显示-->
+		<p title="hello1">我是title为hello1的段落</p>
+		<p title="hello2">我是title为hello2的段落</p>
+		<p title="hello3">我是title为hello3的段落</p>
+		<p title="abc">我是title为abc的段落</p>
+		<p title="bcd">我是title为bcd的段落</p>
+		<p title="xxx">我是title为xxx的段落</p>
+		<p title="yyy">我是title为yyy的段落</p>
+		
+	  	<!--css-->
+		p[title]{   
+	    	background-color: yellow;
+		}
+		p[title="hello1"]{    
+		    background-color: blue;
+		}
+		p[title^="ab"]{    
+		    background-color: pink;
+		}
+		p[title$="d"]{    
+		    background-color: red;
+		}
+		p[title*="xx"]{    
+		    background-color: green;
+		}
+	 </xmp>
+	 
+	 <p class="show">结果展示：</p>
+		
+	<p title="hello1">我是title为hello1的段落</p>
+	<p title="hello2">我是title为hello2的段落</p>
+	<p title="hello3">我是title为hello3的段落</p>
+	<p title="abc">我是title为abc的段落</p>
+	<p title="bcd">我是title为bcd的段落</p>
+	<p title="xxx">我是title为xxx的段落</p>
+	<p title="yyy">我是title为yyy的段落</p>
+	
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

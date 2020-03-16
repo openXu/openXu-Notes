@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>按钮</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		<style  type="text/css">
+			.btn{
+				display: block;
+				width: 200px;
+				height: 70px;
+				background-color: red;
+				background-image: url(../img/css_btn_baidu_normal.png);
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
+			.btn:hover{
+				background-image: url(../img/css_btn_baidu_focus.png);
+			}
+			.btn:active{
+				background-image: url(../img/css_btn_baidu_press.png);
+			}
+			
+			.btn1{
+				display: block;
+				width: 200px;
+				height: 70px;
+				background-image: url(../img/css_btn_baidu.png);
+				background-repeat: no-repeat;
+				background-position: 0 0;
+			}
+			/*当状态发生变化时，希望图片可以向左移动，以实现图片切换效果*/
+			.btn1:hover{
+				background-position: -200px center;
+			}
+			.btn1:active{
+				background-position: -400px center;
+			}
+			
+		</style>
+		
+	<head/>
+
+	<body>
+		
+	<p class="lable">
+		为一个超链接设置一个背景图片，点击的时候有点击效果（使用:active伪类设置另一个图片）。
+	</p>
+		
+	<p class="lable">
+		发现在第一次点击时，图片有一个非常快的<b>闪烁</b>，造成一次不佳的用户体验。
+		问题原因：背景图片是以外部资源的形式加载进网页的，浏览器每加载一个外部资源
+		就需要单独的发送一次请求。但外部资源并不是同时加载，浏览器会在资源被使用的时候采取加载资源，
+		由于按钮的hover和active状态没有马上出发，所以其背景图没有立即加载，而加载资源需要一定时间导致闪烁。
+	</p>
+	<p class="lable"><span class="Keyword">解决闪烁：</span>
+		为了解决该问题，可以将三个图pain整合为一张图片，这样就不存在延迟加载问题，也就不会产生闪烁现象。
+		在状态发生变化时，通过background-position来切换要显示的图片的位置，这种技术叫做
+		<span class="Keyword">图片整合技术（CSS-Sprite）</span>。优点如下：
+	</p>
+	<ol>
+		<li>将多个图片整合为一张图片中，浏览器只需要加载一次，提高访问效率，提高用户体验；</li>
+		<li>将多个图片整合为一张图片，减小了图片的总大小，提高请求速度，节省内存空间</li>
+	</ol>
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+		<!--css-->
+		.btn{
+			display: block;
+			width: 200px;
+			height: 70px;
+			background-color: red;
+			background-image: url(../img/css_btn_baidu_normal.png);
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+		.btn:hover{
+			background-image: url(../img/css_btn_baidu_focus.png);
+		}
+		.btn:active{
+			background-image: url(../img/css_btn_baidu_press.png);
+		}
+		
+		<!--图片整合技术（CSS-Sprite）-->
+		.btn1{
+			display: block;
+			width: 200px;
+			height: 70px;
+			background-image: url(../img/css_btn_baidu.png);
+			background-repeat: no-repeat;
+			background-position: 0 0;
+		}
+		<!--当状态发生变化时，希望图片可以向左移动，以实现图片切换效果-->
+		.btn1:hover{
+			background-position: -200px center;
+		}
+		.btn1:active{
+			background-position: -400px center;
+		}
+		<!--html-->
+		<a class="btn" href="http://www.baidu.com"></a>
+		
+		<a class="btn1" href="http://www.baidu.com"></a>
+	 </xmp>
+	 
+	<p class="show">效果展示：</p>
+	<p >普通图片延时加载闪烁</p>
+	<a class="btn" href="http://www.baidu.com"></a>
+	
+	<p >图片整合技术(CSS-Sprite)</p>
+	<a class="btn1" href="http://www.baidu.com"></a>
+	
+	
+	</body>
+
+<html/>
+
+

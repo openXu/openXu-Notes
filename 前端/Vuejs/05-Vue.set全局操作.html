@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <title>全局API-Vue.set全局操作</title>
+	  <script src="./lib/vue.js"></script>
+	</head>
+		
+	<body>
+		由于Javascript的限制，Vue不能自动检测以下变动的数组。	
+		<ul>
+			<li>当你利用索引直接设置一个项时，vue不会为我们自动更新</li>
+			<li>当你修改数组的长度时，vue不会为我们自动更新</li>
+		</ul>
+		<div id="app">
+			
+			<ul>
+				<li v-for=" aa in arr">{{aa}}</li>
+			</ul>
+		   
+		</div>
+		<button onclick="add()">外部添加</button>
+	 
+		<script type="text/javascript">
+		 
+			function add(){
+				console.log("我已经执行了");
+			   // outData.arr[1] = 'haha';   //直接操作外部数据
+			   // app.arr[1]='ddd';    //通过Vue对象访问
+			   Vue.set(app.arr,1,'ddd');
+			}
+			var outData={
+				arr:['aaa','bbb','ccc']
+			};
+			var app=new Vue({
+				el:'#app',
+				data:outData
+			})
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,45 @@
+h1{     
+	color: red;
+	font-size: 25px;
+}
+h2{     
+	color: black;
+	font-size: 20px;
+}
+h3{     
+	color: black;
+	font-size: 17px;
+}
+p{
+	color: black;
+	font-size: 15px;
+}
+.lable{
+	color: black;
+	font-size: 15px;
+	text-indent:2em;
+}
+.sample{     /*示例*/
+	color: palevioletred;
+	font-size: 15px;
+}
+xmp{
+	color: green;
+	font-size: 15px;
+}
+.show{     /*示例结果*/
+	color: palevioletred;
+	font-size: 15px;
+}
+
+
+.notice{     /*注意*/
+	color: red;
+	font-weight:bold;
+	font-size: 15px;
+}
+.Keyword{    /*关键字，名词*/
+	color: red;
+	font-weight:bold;
+	font-size: 15px;
+}

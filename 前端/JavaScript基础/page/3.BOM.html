@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>BOM(浏览器对象模型)</title>
+		<link rel="stylesheet" type="text/css" href="../../css/hello.css" />
+		<script type="text/javascript">
+	 	</script>
+	<head/>
+
+	<body>
+
+	<h2>简介</h2>
+	<p class="lable"><span class="Keyword">BOM：</span>
+		可以使我们通过js操作浏览器，在BOM中为我们提供了一组对象，用来完成对浏览器的操作。
+	</p>
+	<p class="lable">
+		BOM对象有下列：
+	</p>
+	<ul>
+		<li>Window：代表整个浏览器窗口，同时window也是网页中的全局对象</li>
+		<li>Navigator：代表当前浏览器的信息，通过该对象可以识别不同浏览器</li>
+		<li>Location：代表当前浏览器的地址栏信息，用于获取地址栏信息，或操作浏览器跳转页面</li>
+		<li>History：代表浏览器的历史记录，可以通过该对象来操作浏览器的历史记录，
+		由于隐私原因，该对象不能获取到具体的历史记录，只能操作浏览器向前或者向后翻页，
+		而且该操作只在档次访问时有效</li>
+		<li>Screen：代表用户的屏幕信息，通过该对象可以获取到用户显示器相关的信息</li>
+	</ul>
+		
+	<h2>Window</h2>
+	<p class="lable"><span class="Keyword">Window对象属性：</span>
+	</p>
+	<ul>
+		<li>closed 返回窗口是否已被关闭。 </li> 
+		<li>defaultStatus 设置或返回窗口状态栏中的默认文本。 </li>
+		<li>document 对 Document 对象的只读引用。请参阅 Document 对象。 </li>
+		<li>history 对 History 对象的只读引用。请参数 History 对象。 </li> 
+		<li>innerheight 返回窗口的文档显示区的高度。 </li>
+		<li>innerwidth 返回窗口的文档显示区的宽度。 </li>
+		<li>length 设置或返回窗口中的框架数量。 </li>
+		<li>location 用于窗口或框架的 Location 对象。请参阅 Location 对象。 </li>
+		<li>name 设置或返回窗口的名称。 </li>
+		<li>Navigator 对 Navigator 对象的只读引用。请参数 Navigator 对象。 </li>
+		<li>opener 返回对创建此窗口的窗口的引用。 </li> 
+		<li>outerheight 返回窗口的外部高度。 </li> 
+			<li>pageXOffset 设置或返回当前页面相对于窗口显示区左上角的 X 位置。 </li> </li>
+		<li>outerwidth 返回窗口的外部宽度。  </li>
+		<li>pageYOffset 设置或返回当前页面相对于窗口显示区左上角的 Y 位置。 </li>
+		<li>parent 返回父窗口。 </li> 
+		<li>Screen 对 Screen 对象的只读引用。请参数 Screen 对象。 </li>
+		<li>self 返回对当前窗口的引用。等价于 Window 属性。 </li>
+		<li>status 设置窗口状态栏的文本。 </li>
+		<li>top 返回最顶层的先辈窗口。  </li>
+		<li>window window 属性等价于 self 属性，它包含了对窗口自身的引用。
+		<li>screenLeft 、screenTopscreenX、screenY:只读整数。声明了窗口
+			的左上角在屏幕上的的 x 坐标和 y 坐标。IE、Safari 和 Opera
+			 支持 screenLeft 和 screenTop，而 Firefox 和 Safari  </li>
+			 支持 screenX 和 screenY。 </li>
+	</ul>
+	
+	<p class="lable"><span class="Keyword">Window对象方法：</span>
+	</p>
+	<ul>
+		<li>alert() 显示带有一段消息和一个确认按钮的警告框。</li> 
+		<li>blur() 把键盘焦点从顶层窗口移开。</li> 
+		<li>clearInterval() 取消由 setInterval() 设置的 timeout</li> 
+		<li>clearTimeout() 取消由 setTimeout() 方法设置的 timeout。</li> 
+		<li>close() 关闭浏览器窗口。</li> 
+		<li>confirm() 显示带有一段消息以及确认按钮和取消按钮的对话框。</li> 
+		<li>createPopup() 创建一个 pop-up 窗口。 </li> 
+		<li>focus() 把键盘焦点给予一个窗口。</li> 
+		<li>moveBy() 可相对窗口的当前坐标把它移动指定的像素。 </li> 
+		<li>moveTo() 把窗口的左上角移动到一个指定的坐标。 </li> 
+		<li>open() 打开一个新的浏览器窗口或查找一个已命名的窗口。</li> 
+		<li>print() 打印当前窗口的内容。</li> 
+		<li>prompt() 显示可提示用户输入的对话框。</li> 
+		<li>resizeBy() 按照指定的像素调整窗口的大小。 </li> 
+		<li>resizeTo() 把窗口的大小调整到指定的宽度和高度。</li> 
+		<li>scrollBy() 按照指定的像素值来滚动内容。</li> 
+		<li>scrollTo() 把内容滚动到指定的坐标。 </li> 
+		<li>setInterval() 按照指定的周期（以毫秒计）来调用函数或计算表达式。</li> 
+		<li>setTimeout() 在指定的毫秒数后调用函数或计算表达式. </li> 
+	</ul>
+	
+	<xmp>
+			<h1 id="count">1</h1>
+		window.onload = function(){
+			var count = document.getElementById("count");
+			/**
+			 * 定时调用，可将一个函数每隔一段时间执行一次
+			 * 参数：1、回掉函数
+			 * 	   2、每次调用间隔时间，单位毫秒
+			 * 返回值：返回一个Number类型的数据，这个数字用来作为定时器的唯一标识
+			 */
+			var num = 0;
+			var timer = setInterval(function(){
+				count.innerHTML = ++num;
+				if(num == 5){
+					/**
+					 * 关闭一个定时器，参数为定时器的唯一标识
+					 * clearInterval()接受任意类型的参数，如果参数不是一个有效标识则什么也不做
+					 */
+					clearInterval(timer);
+				}
+			}, 1000);
+			
+			/**
+			 * 延时调用：隔一段时间后执行，而且只会执行一次
+			 */
+			var timer1 = setTimeout(function(){
+				console.log("aaaa");
+			}, 3000);
+			//使用clearTimeout()关闭一个延时调用
+			clearTimeout(timer);
+		}
+		
+	</xmp>
+	
+	
+		
+	<h2>Navigator</h2>
+	<p class="lable"><span class="Keyword">Navigator对象属性：</span>
+		代表当前浏览器的信息，通过该对象可以识别不同的浏览器。由于历史原因，Navigator对象中大部分
+		属性已不能帮助我们识别浏览器了。一般我们只能使用userAgent来判断浏览器的信息
+	</p>
+	<p class="lable"><span class="Keyword">Navigator对象属性：</span>
+	</p>
+	<ul>
+		<li>appCodeName:返回浏览器的代码名 ,</li>
+		<li>appMinorVersion 返回浏览器的次级版本。</li>
+		<li>appName 返回浏览器的名称。</li>
+		<li>appVersion 返回浏览器的平台和版本信息。</li>
+		<li>browserLanguage 返回当前浏览器的语言。</li>
+		<li>cookieEnabled 返回指明浏览器中是否启用 cookie 的布尔值。</li>
+		<li>cpuClass 返回浏览器系统的 CPU 等级。 </li>
+		<li>onLine 返回指明系统是否处于脱机模式的布尔值。</li>
+		<li>platform 返回运行浏览器的操作系统平台。</li>
+		<li>systemLanguage 返回 OS 使用的默认语言。</li>
+		<li>userAgent 返回由客户机发送服务器的 user-agent 头部的值。</li>
+		<li>userLanguage 返回 OS 的自然语言设置。 </li>
+	</ul>
+	<xmp>
+		<!--判断浏览器类型-->
+		var ua = navigator.userAgent;
+		console.log(ua);
+		if(/firefox/i.test(ua)){
+			alert("你是火狐");
+		}else if(/chrome/i.test(ua)){
+			alert("你是Chrome");
+		}else if(/msie/i.test(ua)){  //IE11以前
+			alert("你是IE浏览器");    //IE11版本开始将微软和ID相关的标识都去除了，所以我们不能通过userAgent来识别一个浏览器是否时IE了
+		}
+		//如果通过userAgent不能判断，还可以通过一些浏览器中持有的对象来判断浏览器信息，比如ActiveXObject
+		if("ActiveXObject" in window){
+			alert("你是IE浏览器"); 
+		}else{
+			alert("你不是IE~~~"); 
+		}
+	</xmp>
+	
+	
+	
+	<h2>History</h2>
+	<p class="lable"><span class="Keyword">History：</span>
+		History 对象是由 JavaScript runtime engine 自动创建的，由一系列的 URL 
+		组成。这些 URL 是用户在一个浏览器窗口内已访问的 URL。
+		History 对象最初设计来表示窗口的浏览历史。但出于隐私方面的原因，History 
+		对象不再允许脚本访问已经访问过的实际 URL。
+		唯一保持使用的功能只有 back()、forward() 和 go() 方法。
+	</p>
+	
+	<p class="lable"><span class="Keyword">History对象属性：</span>
+	</p>
+	<ul>
+		<li>length 返回浏览器历史列表中的 URL 数量 </li>
+	</ul>
+	<p class="lable"><span class="Keyword">History对象方法：</span>
+	</p>
+	<ul>
+		<li>back() 加载 history 列表中的前一个 URL </li>
+		<li>forward() 加载 history 列表中的下一个 URL </li>
+		<li>go() 加载 history 列表中的某个具体页面 </li>
+	</ul>
+	
+	
+	<h2>Location </h2>
+	<p class="lable"><span class="Keyword">Location：</span>
+		代表当前浏览器的地址栏信息，用于获取地址栏信息，或操作浏览器跳转页面
+	</p>
+	
+	
+	<p class="lable"><span class="Keyword">Location 对象的属性：</span>
+	</p>
+	<ul>
+		<li>hash 设置或返回从井号 (#) 开始的 URL（锚）。  </li>
+		<li>host 设置或返回主机名和当前 URL 的端口号。 </li>
+		<li>hostname 设置或返回当前 URL 的主机名。 </li>
+		<li>href 设置或返回完整的 URL。 </li>
+		<li>pathname 设置或返回当前 URL 的路径部分。 </li>
+		<li>port 设置或返回当前 URL 的端口号。 </li>
+		<li>protocol 设置或返回当前 URL 的协议。  </li>
+		<li>search 设置或返回从问号 (?) 开始的 URL（查询部分）。  </li>
+	</ul>
+	<p class="lable"><span class="Keyword">Location 对象的方法：</span>
+	</p>
+	<ul>
+		<li>assign() 加载新的文档，用来跳转到其他页面，作用和直接修改location一样，会产生历史记录。 </li>
+		<li>reload() 重新加载当前文档。 如果方法传递一个true，将会强制清除缓存刷新</li>
+		<li>replace() 用新的文档替换当前文档，不会生成历史记录，不能使用回退按钮。  </li>
+	</ul>
+	
+
+	
+	
+	</body>
+
+<html/>
+
+

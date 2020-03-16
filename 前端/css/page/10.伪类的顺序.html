@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>伪类的顺序</title>
+		<link rel="stylesheet" type="text/css" href="../hello.css" />
+		
+		<style type="text/css">
+			
+			a:link{ 
+				color: black;
+			}
+			a:visited{ 
+				color: yellowgreen;
+			}
+			a:hover{ 
+				background-color: yellow;
+			}
+			a:active{ 
+				background-color: red;
+			}
+		</style>
+	<head/>
+	
+
+	<body>
+	
+	
+	<h1>伪类的顺序</h1>
+    <p class="lable">伪类用于选择某个标签的某种状态，由于伪类不止一个，所以伪类选择器之间可能存在重复选中的时候
+    </p>
+	<p>比如</p>
+	<p class="Keyword">涉及a的伪类一共由四个（定义顺序必须严格按照下面顺序）：</p>
+	<ul class="lable">
+		<li>: link</li>
+		<li>: visited</li>
+		<li>: hover</li>
+		<li>: active</li>
+		<p>这四个选择器的优先级是一样的。一个链接要么被点击过，要么没被点击，鼠标点击的时候也是移入状态，如果选择器定义位置不注意，可能导致样式不起效</p>
+	</ul>
+	
+	
+	<p class="sample">示例：</p>
+	  <xmp>
+	  	
+	  	<!--html-->
+	  	<a href="http://www.baidu.com"></a>
+		<a href="http://www.baidu122.com"></a>
+		  	
+	  	<!--css-->
+	  	a:link{ 
+			color: black;
+		}
+		a:visited{ 
+			color: yellowgreen;
+		}
+		a:hover{ 
+			background-color: yellow;
+		}
+		a:active{ 
+			background-color: red;
+		}
+	  	
+	 </xmp>
+	 
+	 <p class="show">效果展示：</p>
+	
+	<a href="http://www.baidu.com">http://www.baidu.com</a><br />
+	<a href="http://www.baidu122.com">http://www.baidu122.com</a>
+		
+	</body>
+
+<html/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
