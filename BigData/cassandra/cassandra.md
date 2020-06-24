@@ -37,12 +37,15 @@ curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add -
 
 - 查看所有键空间
    - describe keyspaces;
+- 删除键空间
+   - drop keyspaces xxx;
 - 查询系统键空间(未通过)
    - SELECT * FROM system.schema_keyspaces;
 - 使用keyspace
    - USE open_xu;
 - 查看空间中所有表
    - describe tables;
+
 
 **key spaces（对应关系数据库中的数据库）**
 
