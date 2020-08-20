@@ -1,3 +1,5 @@
+> 版权声明：本文为openXu原创文章[【openXu的博客】](http://blog.csdn.net/xmxkf)，未经博主允许不得以任何形式转载
+
 @[TOC](目录)
 
 Android程序和一个Java程序最大的区别是Android的系统组件不能像普通Java程序通过new创建对象，而是通过系统提供的特殊方式，这是因为new出来的组件没有携带上下文环境Context。为什么要设计Context？其实说起来跟Android的沙盒机制有一定关系，一个Android程序只能访问自己的东西，比如资源文件、数据库及文件存储、开启页面等等，而这些功能都是由Context提供的，Context由系统创建而不能new，所以上面说的资源文件路径、存储路径、页面等就只能限制在自己应用程序里面了，当然可以通过暴力反射修改这些内容，比如下面修改SharedPreferences存储路径:
@@ -29,7 +31,7 @@ private static SharedPreferences getSharedPreferences(boolean def, Context conte
 }
 ```
 
-## Context的作用
+## 1. Context的作用
 
 Context有什么用呢？那就直接看看它有哪些方法，下面铺出部分源码：
 
@@ -71,7 +73,7 @@ public abstract class Context {
 
 从源码可看出我们在Android开发中基本都是在围着Context转，比如跳转ctivity、启动Service、发送广播、操作资源文件、操作数据存储等功能，都是由Context提供的。
 
-## Context类的实现
+## 2. Context类的实现
 
 上下文被封装成名为`Context`的抽象类，它的继承关系如下：
 
@@ -147,13 +149,13 @@ com.openxu.along V/openxu: getBaseContext()=android.app.ContextImpl@f4b677b
 
 `mBase`对象是系统创建的，然后调用`attachBaseContext(Context base)`将mBase对象传递给`ContextWrapper`，所以说`ContextImpl`才是真正的上下文功能实现类。
 
-## ContextWrapper与ContextImpl关联
+## 3. ContextWrapper与ContextImpl关联
 
 ContextWrapper中的mBase是什么时候被赋值的呢？也就是说`attachBaseContext(Context base)`是什么时候被调用的呢？ContextWrapper的子类有Activity、Service、Applicaiton，所以得分情况讨论，但不外乎一点都是在他们被创建的之后关联上ContextImpl的。
 
 这里涉及到查看Android被隐藏的源码，github上有人去除了android.jar中的@hide注解，可以在[android-hidden-api](https://github.com/anggrayudi/android-hidden-api)中下载某一个版本的android.jar，将自己sdk目录下（比如`F:\IDE\sdk\platforms\android-28`）的替换，然后修改`compileSdkVersion`和`targetSdkVersion`，rebuild即可
 
-### Application
+### 3.1 Application
 
 ```Java
 //android.app.LoadedApk.java
@@ -170,7 +172,7 @@ public Application makeApplication(boolean forceDefaultAppClass,
 }
 ```
 
-### Service
+### 3.2 Service
 
 ```Java
 //android.app.ActivityThread.java
@@ -202,7 +204,7 @@ private void handleCreateService(ActivityThread.CreateServiceData data) {
 }
 ```
 
-### Activity
+### 3.3 Activity
 
 ```Java
 //android.app.ActivityThread.java
@@ -229,7 +231,7 @@ private Activity performLaunchActivity(ActivityClientRecord r, Intent customInte
 }
 ```
 
-## Context数量
+## 4. Context数量
 
 弄懂了上面Context的继承及实现关系，如果要问一个Android应用程序究竟有多少个Context实例对象被创建？答案是`Context数量=(Activity数量+Service数量+1个Application)*2`。
 
@@ -238,7 +240,7 @@ Activity、Service、Application都是ContextWrapper的子类，他们的实例�
 我们都知道Android有四大组件，除了Activity、Service还有BroadcastReceiver、ContentProvider，为什么后两个组件不是Context的子类呢？因为这两个持有的Context都是其他地方传过去的，也就是说虽然在它们里面能使用上下文，但是这个上下文是别人的，别人给他用的。
 
 
-## Application Context
+## 5. Application Context
 
 每个应用程序都有一个Application，如果我们没有继承Application并在清单文件注册，应用程序启动时会创建一个默认的Application实例。
 
@@ -266,7 +268,7 @@ openxu: getApplicationContext()=com.openxu.single.MyApplication@f18630a
 既然这两个方法返回的是同一个对象，那为什么还要设计两个方法呢？原因就是这两个方法他们处于不同的类中，如果在Activity、Service中我们需要使用Application对象，这两个方法都能够调用。但是如果我们想在任何拥有Context的的场景中获取Application呢？比如BroadcastReceiver、ContentProvider或者Dialog中，就可以调用`context.getApplicationContext()`。
 
 
-## Context中的Resources
+## 6. Context中的Resources
 
 Context中getResources()方法，ContextImpl实现了该方法并返回mResources成员变量，mResources是在ContextImpl被创建后调用`setResources()`初始化的。Applicaion和Service创建时都调用`ContextImpl.createAppContext()`来创建ContextImpl对象，Activity创建时调用`ContextImpl.createActivityContext()`来创建ContextImpl对象。这两个方法中都最终调用了`ResourcesManager.getOrCreateResources(IBinder activityToken, ResourcesKey key, ClassLoader classLoader)`获取Resources实例。
 
@@ -310,7 +312,7 @@ Resources getOrCreateResources(@Nullable IBinder activityToken,
 Resources和ResourcesImpl是两个不同的类，他们没有继承关系，Resources中持有ResourcesImpl的引用，Resources中的方法都是在调用ResourcesImpl的方法，所以可以将ResourcesImpl看作是Resources的实现类。不管是Applicaiton、Service、Activity，他们虽然持有不同的的Resources对象，但是ResourcesImpl实例是同一个，整个应用程序就只有这一个ResourcesImpl。至于为什么Activity的Resources和Applicaiton、Service的不是同一种类型，其实他们的Resources都是Resources或者其子类，Activity是页面相关的，带有主题Theme的内容，所以在Resources基础上封装了Theme相关的方法比如`getTheme()`。
 
 
-## Context的使用
+## 7. Context的使用
 
 Android开发中Context的使用无处不在，但是刚刚说了这么多中Context，怎么确定什么场景下使用那种Context？其实在真实开发中，我们不必太多讲究，在要使用Context的时候把能拿到的Context拿过来用就行了。但是得注意下面几点：
 
