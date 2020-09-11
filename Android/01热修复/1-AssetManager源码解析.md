@@ -22,9 +22,21 @@ AssetManager有Java层和C++层，Java层的功能都是通过C++层的AssetMana
 
 ## 源码跟踪
 
+关键源码位置：
+java层：
+- android.content.res.Resources
+- android.content.res.ResourcesImpl
+- android.content.res.AssetManager
+jni层：
+- frameworks/base/core/jni/android_util_AssetManager.cpp
+C++层：
+- frameworks/base/libs/androidfw/include/androidfw/AssetManager.h
+- frameworks/base/libs/androidfw/AssetManager.cpp 
+
+
 下面以Activity启动过程中，为ContextImpl创建AssetManager对象为例，源码追踪从ActivityThread创建Activity开始，直到AssetManager对象创建完（注释中带★的表示下一步要继续追踪）：
 
-1. android.app.ActivityThread.performLaunchActivity()
+**1. android.app.ActivityThread.performLaunchActivity()**
 
 ```Java
 private Activity performLaunchActivity(ActivityClientRecord r, Intent customIntent) {
@@ -47,7 +59,7 @@ private Activity performLaunchActivity(ActivityClientRecord r, Intent customInte
 
 > 该方法创建一个Activity，调用了`createBaseContextForActivity(r)`，进而调用`ContextImpl.createActivityContext()`来为Activity创建ContextImpl对象
 
-2. android.app.ContextImpl.createActivityContext()
+**2. android.app.ContextImpl.createActivityContext()**
 
 ```Java
 static ContextImpl createActivityContext(ActivityThread mainThread,
@@ -73,7 +85,7 @@ static ContextImpl createActivityContext(ActivityThread mainThread,
 
 > 调用`ContextImpl`的静态方法`createActivityContext()`创建ContextImpl实例，该方法首先new一个ContextImpl对象，然后调用单例ResourcesManager的`createBaseActivityResources()`方法为ContextImpl创建Resources对象并设置给ContextImpl
 
-3. android.app.ResourcesManager.createBaseActivityResources()
+**3. android.app.ResourcesManager.createBaseActivityResources()**
 
 ```Java
 public @Nullable Resources createBaseActivityResources(...) {
@@ -93,7 +105,7 @@ public @Nullable Resources createBaseActivityResources(...) {
 
 > 该方法首先根据应用的一些信息生成一个ResourcesKey（包含资源路径），然后调用`getOrCreateResources()`根据key请求一个Resources对象
 
-4. android.app.ResourcesManager.getOrCreateResources()
+**4. android.app.ResourcesManager.getOrCreateResources()**
 
 ```Java
 private @Nullable Resources getOrCreateResources(IBinder activityToken, ResourcesKey key,ClassLoader classLoader) {
@@ -135,7 +147,7 @@ private @Nullable Resources getOrCreateResources(IBinder activityToken, Resource
 
 > 首先从`ArrayMap<ResourcesKey, WeakReference<ResourcesImpl>> mResourceImpls`中根据key查找ResourcesImpl对象，这个ArrayMap维护当前应用进程中加载的每个apk文件(apk路径生成的key)及对应的ResourcesImpl对象，通常情况下，同一个应用不同Activity的ResourcesKey是相同的，也就是说使用的是同一个ResourcesImpl对象。如果没找到就创建，找到了就使用这个对象，然后根据ResourcesImpl对象创建Resources。这里假设没有找到对应的ResourcesImpl对象，继续调用`createResourcesImpl()`。
 
-5. android.app.ResourcesManager.createResourcesImpl()
+**5. android.app.ResourcesManager.createResourcesImpl()**
 
 ```java
 private @Nullable ResourcesImpl createResourcesImpl(@NonNull ResourcesKey key) {
@@ -153,7 +165,7 @@ private @Nullable ResourcesImpl createResourcesImpl(@NonNull ResourcesKey key) {
 
 > 该方法中调用了`createAssetManager(key)`创建一个AssetManager对象，然后通过构造方法new一个ResourcesImpl对象，下面看看创建AssetManager做了那些事
 
-6. android.app.ResourcesManager.createAssetManager(key)
+**6. android.app.ResourcesManager.createAssetManager(key)**
 
 ```Java
  protected @Nullable AssetManager createAssetManager(@NonNull final ResourcesKey key) {
@@ -172,7 +184,7 @@ private @Nullable ResourcesImpl createResourcesImpl(@NonNull ResourcesKey key) {
 
 > 该方法首先通过构造函数创建AssetManager对象，然后调用`addAssetPath()`添加资源路径，下面我们看看Java层的AssetManager类
 
-7. android.content.res.AssetManager
+**7. android.content.res.AssetManager**
 
 ```Java
 public final class AssetManager implements AutoCloseable {
@@ -201,7 +213,7 @@ public final class AssetManager implements AutoCloseable {
 
 > C++不了解的同学可以自行搜索学习一下基本语法，最起码要认识代码，比如通过[C++菜鸟教程](https://www.runoob.com/cplusplus/cpp-tutorial.html)
 
-8. android_content_AssetManager_init()
+**8. android_content_AssetManager_init()**
 
 ```C++
 //源码位置frameworks/base/core/jni/android_util_AssetManager.cpp
@@ -217,7 +229,7 @@ static void android_content_AssetManager_init(JNIEnv* env, jobject clazz, jboole
 }
 ```
 
-9. AssetManager::addDefaultAssets()
+**9. AssetManager::addDefaultAssets()**
 
 ```C++
 //源码位置frameworks/base/libs/androidfw/AssetManager.cpp
@@ -238,7 +250,7 @@ bool AssetManager::addDefaultAssets()
 }
 ```
 
-10. AssetManager::addAssetPath()
+**10. AssetManager::addAssetPath()**
 
 ```C++
 tatic const char* kAppZipName = NULL; //"classes.jar";
@@ -290,7 +302,7 @@ bool AssetManager::addAssetPath(const String8& path, int32_t* cookie, bool appAs
 #endif
 
     if (mResources != NULL) {
-        //☆添加资源到资源表，将资源文件下的资源添加到资源表中
+        //☆添加资源到资源表，将资源文件下的资源添加到资源表中，只有第一次获取资源后mResources才不为空，所以一般情况下不会执行这里，后面讲获取资源源码时会看到mResources什么时候被初始化
         appendPathToResTable(ap, appAsLib);
     }
 
@@ -298,9 +310,9 @@ bool AssetManager::addAssetPath(const String8& path, int32_t* cookie, bool appAs
 }
 ```
 
-> addAssetPath()方法就是将path描述的资源路径保存到mAssetPaths动态数组中，到此C++层的AssetManager对象就算创建完成，上面第6步又调用`assets.addAssetPath(key.mResDir)`将应用程序的资源路径也添加进去。addAssetPath()方法最后会调用`appendPathToResTable()`去加载路径下的resources.arsc并解析，将资源索引添加到ResTable中保存。其实到这里AssetManager创建过程算是跟踪完了，但是关于资源还有一个重要的事情，就是设置设备信息，感兴趣可以继续往下看
+> addAssetPath()方法就是将path描述的资源路径保存到mAssetPaths动态数组（存储asset_path结构体对象）中，asset_path是一个结构体，它封装了资源路径以及文件类型(是文件还是文件夹)等信息，到此C++层的AssetManager对象就算创建完成，上面第6步又调用`assets.addAssetPath(key.mResDir)`将应用程序的资源路径也添加进去。addAssetPath()方法最后会调用`appendPathToResTable()`去加载路径下的resources.arsc并解析，将资源索引添加到ResTable中保存。其实到这里AssetManager创建过程算是跟踪完了，但是关于资源还有一个重要的事情，就是设置设备信息，感兴趣可以继续往下看
 
-11. android_content_AssetManager_addAssetPath()
+**11. android_content_AssetManager_addAssetPath()**
 
 ```C++
 //源码位置frameworks/base/core/jni/android_util_AssetManager.cpp
@@ -320,7 +332,7 @@ static jint android_content_AssetManager_addAssetPath(JNIEnv* env, jobject clazz
 
 > 在第5步时，我们创建了AssetManager对象，并通过构造方法创建ResourcesImpl，ResourcesImpl的构造方法中调用了`updateConfiguration()`方法，下面我们看看它做了什么事情
 
-12. android.content.res.ResourcesImpl.updateConfiguration()
+**12. android.content.res.ResourcesImpl.updateConfiguration()**
 
 ```java
 private final Configuration mConfiguration = new Configuration();
@@ -362,7 +374,7 @@ public void updateConfiguration(Configuration config, DisplayMetrics metrics,
 > updateConfiguration()主要用来更新ResourcesImpl成员变量mConfiguration的信息（18个资源维度），Configuration描述了设备的配置信息（国家、地区、语言、屏幕密度等），在android项目中，同一张图片可能有多种分辨率放到不同的资源目录下，比如mipmap-hdpi、mipmap-xhdpi，但是它们的资源名和id是相同的，当一台设备上需要显示一张图片时应该加载那个目录下的图片呢？这就需要根据Configuration中记录的屏幕密度做判断了。方法中最后调用了`mAssets.setConfiguration()`，这是一个jni方法
 
 
-13. android_content_AssetManager_setConfiguration()
+**13. android_content_AssetManager_setConfiguration()**
 
 ```C++
 //源码位置frameworks/base/core/jni/android_util_AssetManager.cpp
@@ -395,7 +407,7 @@ static void android_content_AssetManager_setConfiguration(JNIEnv* env, jobject c
 }
 ```
 
-14. AssetManager::setConfiguration()
+**14. AssetManager::setConfiguration()**
 
 ```C++
 //源码位置frameworks/base/libs/androidfw/AssetManager.cpp
@@ -418,7 +430,7 @@ void AssetManager::setConfiguration(const ResTable_config& config, const char* l
 }
 ```
 
-15. AssetManager::updateResourceParamsLocked()
+**15. AssetManager::updateResourceParamsLocked()**
 
 ```C++
 //mutable ResTable* mResources;
@@ -455,8 +467,134 @@ void AssetManager::updateResourceParamsLocked() const
 
 # ResTable简要分析
 
+关键源码位置：
+- frameworks/base/libs/androidfw/include/androidfw/ResourceTypes.h
+- frameworks/base/libs/androidfw/ResourceTypes.cpp
 
----------------------
+0x7f0b0000
+资源ID = Package ID + Type ID + Entry ID
+   ID
+0x7f0b0000  ic_launcher res/mipmap-mdpi-v4/ic_launcher.png  res/mipmap-xhdpi-v4/ic_launcher.png
+
+
+1.ResTable(一个ResTable可以加载多个arsc，比如系统资源和应用程序资源)
+
+## 相关源码解析
+
+ResTable是一个资源索引表，它主要是通过加载resources.arsc文件并解析后用ResTable对象表示，C++层AssetManager中有一个ResTable类型成员变量mResources，通过它可以根据资源ID获取到对应的资源值。下面我们看看ResTable中是什么样的结构，里面包含那些内容分别代表什么。
+
+```C++
+//源码位置 frameworks/base/libs/androidfw/include/androidfw/ResourceTypes.h
+
+/*
+ * ResTable类定义在ResourceTypes.h文件中，它有一系列的结构体成员变量
+ * AssetManager.addAssetPath(path)方法可以添加一个apk路径，然后加载其resources.arsc文件解析成一个ResTable对象；
+ * AssetManager中有一个ResTable类型成员变量mResources，它是所有资源表的集合，addAssetPath()方法解析的ResTable对象会通过调用mResources—>add(sharedRes)添加到总索引表中
+ */
+class ResTable  
+{ 
+  private:
+    struct Header;
+    struct Type;
+    struct Entry;
+    struct Package;
+    struct PackageGroup;
+    typedef Vector<Type*> TypeList;
+}
+
+//源码位置 frameworks/base/libs/androidfw/ResourceTypes.cpp
+
+struct ResTable::Header
+{
+    explicit Header(ResTable* _owner) : owner(_owner), ownedData(NULL), header(NULL),
+        resourceIDMap(NULL), resourceIDMapSize(0) { }
+
+    ~Header()
+    {
+        free(resourceIDMap);
+    }
+
+    const ResTable* const           owner;
+    void*                           ownedData;
+    const ResTable_header*          header;
+    size_t                          size;
+    const uint8_t*                  dataEnd;
+    size_t                          index;
+    int32_t                         cookie;
+
+    ResStringPool                   values;
+    uint32_t*                       resourceIDMap;
+    size_t                          resourceIDMapSize;
+};
+
+// A group of objects describing a particular resource package.
+// The first in 'package' is always the root object (from the resource
+// table that defined the package); the ones after are skins on top of it.
+struct ResTable::PackageGroup
+{
+    PackageGroup(
+            ResTable* _owner, const String16& _name, uint32_t _id,
+            bool appAsLib, bool _isSystemAsset)
+        : owner(_owner)
+        , name(_name)
+        , id(_id)
+        , largestTypeId(0)
+        , dynamicRefTable(static_cast<uint8_t>(_id), appAsLib)
+        , isSystemAsset(_isSystemAsset)
+    { }
+}
+struct ResTable::Package
+{
+    Package(ResTable* _owner, const Header* _header, const ResTable_package* _package)
+        : owner(_owner), header(_header), package(_package), typeIdOffset(0) {
+        if (dtohs(package->header.headerSize) == sizeof(*package)) {
+            // The package structure is the same size as the definition.
+            // This means it contains the typeIdOffset field.
+            typeIdOffset = package->typeIdOffset;
+        }
+    }
+
+    const ResTable* const           owner;
+    const Header* const             header;
+    const ResTable_package* const   package;
+
+    ResStringPool                   typeStrings;
+    ResStringPool                   keyStrings;
+
+    size_t                          typeIdOffset;
+};
+
+
+struct ResTable::Entry {
+    ResTable_config config;
+    const ResTable_entry* entry;
+    const ResTable_type* type;
+    uint32_t specFlags;
+    const Package* package;
+
+    StringPoolRef typeStr;
+    StringPoolRef keyStr;
+};
+
+struct ResTable::Type
+{
+    Type(const Header* _header, const Package* _package, size_t count)
+        : header(_header), package(_package), entryCount(count),
+          typeSpec(NULL), typeSpecFlags(NULL) { }
+    const Header* const             header;
+    const Package* const            package;
+    const size_t                    entryCount;
+    const ResTable_typeSpec*        typeSpec;
+    const uint32_t*                 typeSpecFlags;
+    IdmapEntries                    idmapEntries;
+    Vector<const ResTable_type*>    configs;
+};
+
+
+
+
+```
+
 
 
 # AssetManager获取资源分析
@@ -471,17 +609,25 @@ getAssets().list("path");
 
 我们通常使用Resources对象根据资源id获取对应的资源，使用AssetManager获取assets目录下的文件。不管获取什么资源，最终都是通过AssetManager对象获取的。接下来我们通过加载布局layout文件跟踪整个资源获取过程。
 
+## 源码解析
+
+**1. setContentView(R.layout.activity_main)**
+
 ```Java
 //为activity设置布局id
 setContentView(R.layout.activity_main);
 
 //android.app.Activity
-private Window mWindow;   //PhoneWindow对象
+private Window mWindow;   //mWindow是PhoneWindow对象，用于管理顶层窗口的外观和行为
 public void setContentView(@LayoutRes int layoutResID) {
-    getWindow().setContentView(layoutResID);  //★
+    getWindow().setContentView(layoutResID);  //2. ★调用PhoneWindow的方法
     initWindowDecorActionBar();
 }
+```
 
+**2. PhoneWindow.setContentView()**
+
+```Java
 //com.android.internal.policy.PhoneWindow
 ViewGroup mContentParent;
 private LayoutInflater mLayoutInflater;
@@ -493,8 +639,7 @@ public void setContentView(int layoutResID) {
         mContentParent.removeAllViews();
     }
     if (hasFeature(FEATURE_CONTENT_TRANSITIONS)) {
-        final Scene newScene = Scene.getSceneForLayout(mContentParent, layoutResID,
-                getContext());
+        final Scene newScene = Scene.getSceneForLayout(mContentParent, layoutResID, getContext());
         transitionTo(newScene);
     } else {
         //★调用布局填充器的inflate方法将对应布局id的layout填充到activity根视图中
@@ -502,33 +647,44 @@ public void setContentView(int layoutResID) {
     }
     //...
 }
+```
 
+**3. LayoutInflater.inflate()**
+
+```Java
 //android.view.LayoutInflater
-public View inflate(@LayoutRes int resource, @Nullable ViewGroup root) {
-    return inflate(resource, root, root != null);
-}
 public View inflate(@LayoutRes int resource, @Nullable ViewGroup root, boolean attachToRoot) {
+    //getContext()拿到的就是Activity对象
     final Resources res = getContext().getResources();
-    //★利用Resources通过layoutID得到一个xml解析器
+    //4. ★利用Resources通过layoutID得到一个xml解析器
     final XmlResourceParser parser = res.getLayout(resource);
     try {
         return inflate(parser, root, attachToRoot);
-    } finally {
-        parser.close();
     }
 }
+```
 
+
+**4. Resources.getLayout()**
+
+```Java
 //android.content.res.Resources
 public XmlResourceParser getLayout(@LayoutRes int id) throws NotFoundException {
     return loadXmlResourceParser(id, "layout");
 }
 XmlResourceParser loadXmlResourceParser(@AnyRes int id, @NonNull String type)
         throws NotFoundException {
+    /*
+     * TypedValue中可以存放资源类型，资源值等信息，不同类型资源的资源值不同，比如strings.xml中定义的类型对应资源值就是字符串本身，而layout对应的资源值是xml文件名称
+     * 这里仅仅是获取一个资源类型数据值的容器，下面getValue()获取id对应的资源相关信息后存储在这个容器中
+     */
     final TypedValue value = obtainTempTypedValue();
     try {
         final ResourcesImpl impl = mResourcesImpl;
+        //★ 获得该资源ID所对应的资源信息（资源类型，资源值等）存储在TypedValue中
         impl.getValue(id, value, true);
         if (value.type == TypedValue.TYPE_STRING) {
+            //★ 
             return impl.loadXmlResourceParser(value.string.toString(), id,
                     value.assetCookie, type);
         }
@@ -538,13 +694,520 @@ XmlResourceParser loadXmlResourceParser(@AnyRes int id, @NonNull String type)
         releaseTempTypedValue(value);
     }
 }
+```
+
+> loadXmlResourceParser()方法的作用是根据id返回一个layout布局的xml解析器，首先调用`getValue()`根据id获取layout对应的资源值(布局文件名称)，然后调用`loadXmlResourceParser()`加载布局文件返回xml解析器，下面我们对这两个方法分别追踪
+
+**5. ResourcesImpl.getValue()**
+
+```Java
+void getValue(@AnyRes int id, TypedValue outValue, boolean resolveRefs) throws NotFoundException {
+    //★通过成员变量mAssets（AssetManager对象）获取id对应资源值
+    boolean found = mAssets.getResourceValue(id, 0, outValue, resolveRefs);
+    if (found) 
+        return;
+    throw new NotFoundException("Resource ID #0x" + Integer.toHexString(id));
+}
+```
+
+**6. AssetManager.getResourceValue()**
+
+```Java
+final boolean getResourceValue(@AnyRes int resId, int densityDpi, @NonNull TypedValue outValue, boolean resolveRefs) {
+      synchronized (this) {
+          //★加载资源id对应的资源，将资源数据存放到outValue中，该方法是jni方法
+          final int block = loadResourceValue(resId, (short) densityDpi, outValue, resolveRefs);
+          if (block < 0) 
+              return false;
+          outValue.changingConfigurations = ActivityInfo.activityInfoConfigNativeToJava(
+                  outValue.changingConfigurations);
+
+          if (outValue.type == TypedValue.TYPE_STRING) {
+            //StringBlock数组元素描述的是当前应用程序使用的每一个资源索引表的资源项值字符串资源池
+              outValue.string = mStringBlocks[block].get(outValue.data);
+          }
+          return true;
+      }
+}
+
+private native final int loadResourceValue(int ident, short density, TypedValue outValue, boolean resolve);
+```
+
+**7. android_content_AssetManager_loadResourceValue()**
+
+```Java
+//frameworks/base/core/jni/android_util_AssetManager.cpp
+static jint android_content_AssetManager_loadResourceValue(JNIEnv* env, jobject clazz,jint ident,...){
+    //...得到C++层AssetManager对象指针
+    AssetManager* am = assetManagerForJavaObject(env, clazz);
+    //...★调用其getResources()方法获得ResTable对象，ResTable描述的是一个资源表（通过加载解析resources.arsc）
+    const ResTable& res(am->getResources());
+
+    Res_value value;         //资源项值
+    ResTable_config config;  //配置信息
+    uint32_t typeSpecFlags;
+    //★ 通过ResTable获得资源id对应的资源项值和配置信息
+    ssize_t block = res.getResource(ident, &value, false, density, &typeSpecFlags, &config);
+    //...
+    uint32_t ref = ident;
+    if (resolve) {
+        //★ 解析前面所得到的资源项值
+        block = res.resolveReference(&value, block, &ref, &typeSpecFlags, &config);
+        //...
+    }
+    if (block >= 0) {
+        //将上述得到的资源项值及其配置信息拷贝到参数outValue所描述的一个Java层的TypedValue对象中去
+        return copyValue(env, outValue, &res, value, ref, block, typeSpecFlags, &config);
+    }
+
+    return static_cast<jint>(block);
+}
+```
+> 该方法首先调用getResources()获得Restable资源索引表，然后调用索引表的resolveReference()方法获取对应id资源值，最后将资源值信息拷贝到Java层的TypedValue对象中。下面我们先看看资源索引表的获取
+
+**8. AssetManager::getResTable()**
+
+```Java
+const ResTable* AssetManager::getResTable(bool required) const
+{
+    //获取AssetManager对象的成员变量mResources，如果不为空则直接返回
+    ResTable* rt = mResources;
+    if (rt)   //第一次根据id获取资源mResources是null，
+        return rt;
+    //互斥锁
+    AutoMutex _l(mLock);
+    //再次判断避免其它线程已经解析初始化了mResources
+    if (mResources != NULL) 
+        return mResources;
+    if (required) {
+        LOG_FATAL_IF(mAssetPaths.size() == 0, "No assets added to AssetManager");
+    }
+    //★★★★★★创建ResTable对象为mResources总索引表赋值
+    mResources = new ResTable();
+    updateResourceParamsLocked();
+
+    bool onlyEmptyResources = true;
+    const size_t N = mAssetPaths.size();
+    //迭代所有资产包，从每个包中收集资源，为什么会有多个资源包呢？因为默认会有一个系统资源包，还有应用自身的资源包，从AssetManager创建过程我们可以知道
+    for (size_t i=0; i<N; i++) {
+        //★appendPathToResTable()方法加载指定路径下的resources.arsc文件
+        bool empty = appendPathToResTable(mAssetPaths.itemAt(i));
+        onlyEmptyResources = onlyEmptyResources && empty;
+    }
+    //...
+    return mResources;
+}
+```
+
+> getResTable()方法首先判断mResources有么有被加载过，如果不为空则说明已经加载直接返回，否则遍历资源路径数组，挨个加载resources.arsc文件
+
+**9. AssetManager.appendPathToResTable()**
+
+```Java
+bool AssetManager::appendPathToResTable(const asset_path& ap, bool appAsLib) const {
+    // 跳过与系统覆盖相对应的路径
+    if (ap.isSystemOverlay) {
+        return true;
+    }
+
+    Asset* ass = NULL;
+    ResTable* sharedRes = NULL;
+    bool shared = true;
+    bool onlyEmptyResources = true;
+    ATRACE_NAME(ap.path.string());
+    Asset* idmap = openIdmapLocked(ap);
+    size_t nextEntryIdx = mResources->getTableCount();
+    if (ap.type != kFileTypeDirectory) {
+        if (nextEntryIdx == 0) {
+            //第一项通常是framwork框架资源，我们希望避免每次解析它
+            sharedRes = const_cast<AssetManager*>(this)->
+                mZipSet.getZipResourceTable(ap.path);
+            if (sharedRes != NULL) {
+                //跳过预装的系统覆盖包的数量
+                nextEntryIdx = sharedRes->getTableCount();
+            }
+        }
+        if (sharedRes == NULL) {
+           //调用成员变量mZipSet的getZipResourceTableAsset()方法获得一个对应的Asset对象
+            ass = const_cast<AssetManager*>(this)->
+                mZipSet.getZipResourceTableAsset(ap.path);
+            if (ass == NULL) {
+                ALOGV("loading resource table %s\n", ap.path.string());
+                //如果resources.arsc没有提取出来，则提取resources.arsc
+                ass = const_cast<AssetManager*>(this)->
+                    openNonAssetInPathLocked("resources.arsc",
+                                             Asset::ACCESS_BUFFER,
+                                             ap);
+                if (ass != NULL && ass != kExcludedAsset) {
+                    ass = const_cast<AssetManager*>(this)->
+                        mZipSet.setZipResourceTableAsset(ap.path, ass);
+                }
+            }
+            if (nextEntryIdx == 0 && ass != NULL) {
+                sharedRes = new ResTable();
+                //调用ResTable的add方法将提取resources.arsc得到的Asset对象添加到资源表中
+                sharedRes->add(ass, idmap, nextEntryIdx + 1, false);
+#ifdef __ANDROID__
+                const char* data = getenv("ANDROID_DATA");
+                LOG_ALWAYS_FATAL_IF(data == NULL, "ANDROID_DATA not set");
+                String8 overlaysListPath(data);
+                overlaysListPath.appendPath(kResourceCache);
+                overlaysListPath.appendPath("overlays.list");
+                addSystemOverlays(overlaysListPath.string(), ap.path, sharedRes, nextEntryIdx);
+#endif
+                sharedRes = const_cast<AssetManager*>(this)->
+                    mZipSet.setZipResourceTable(ap.path, sharedRes);
+            }
+        }
+    } else {
+        ALOGV("loading resource table %s\n", ap.path.string());
+        ass = const_cast<AssetManager*>(this)->
+            openNonAssetInPathLocked("resources.arsc",
+                                     Asset::ACCESS_BUFFER,
+                                     ap);
+        shared = false;
+    }
+
+    if ((ass != NULL || sharedRes != NULL) && ass != kExcludedAsset) {
+        ALOGV("Installing resource asset %p in to table %p\n", ass, mResources);
+        //将刚刚加载resources.arsc得到的数据添加到总的资源索引表中
+        if (sharedRes != NULL) {
+            ALOGV("Copying existing resources for %s", ap.path.string());
+            mResources->add(sharedRes, ap.isSystemAsset);
+        } else {
+            ALOGV("Parsing resources for %s", ap.path.string());
+            mResources->add(ass, idmap, nextEntryIdx + 1, !shared, appAsLib, ap.isSystemAsset);
+        }
+        onlyEmptyResources = false;
+
+        if (!shared) {
+            delete ass;
+        }
+    } else {
+        mResources->addEmpty(nextEntryIdx + 1);
+    }
+
+    if (idmap != NULL) {
+        delete idmap;
+    }
+    return onlyEmptyResources;
+}
+```
+
+> 这个方法主要逻辑是加载解析一个resources.arsc文件，将解析得到的数据用C++的一个对象表示，然后添加到AssetManager成员变量mResources总索引表中，关于resources.arsc文件到底是怎样加载的，可继续跟踪`frameworks/base/libs/androidfw/Asset.cpp`中的相关方法。下面我们回到第7步第二个跟踪点`res.getResource()`获得资源id对应的资源项值和配置信息
+
+**10. ResTable.getResource()**
+
+```Java
+//源码位置 frameworks/base/libs/androidfw/ResourceTypes.cpp
+ssize_t ResTable::getResource(uint32_t resID, Res_value* outValue, bool mayBeBag, uint16_t density, uint32_t* outSpecFlags, ResTable_config* outConfig) const
+{
+    //0x7f0b0000 资源ID = Package ID + Type ID + Entry ID
+    //根据资源id分别获得它的Pakcage ID、Type ID、Entry ID，保存在p、t、e中
+    const ssize_t p = getResourcePackageIndex(resID);
+    const int t = Res_GETTYPE(resID);
+    const int e = Res_GETENTRY(resID);
+    //...
+    //根据Package ID获得对应的PackageGroup
+    const PackageGroup* const grp = mPackageGroups[p];
+    //...
+
+    // Allow overriding density
+    ResTable_config desiredConfig = mParams;
+    if (density > 0) {
+        desiredConfig.density = density;
+    }
+
+    Entry entry;
+    //获取具体资源的封装对象
+    status_t err = getEntry(grp, t, e, &desiredConfig, &entry);
+    //...
+    const Res_value* value = reinterpret_cast<const Res_value*>(
+            reinterpret_cast<const uint8_t*>(entry.entry) + entry.entry->size);
+
+    outValue->size = dtohs(value->size);
+    outValue->res0 = value->res0;
+    outValue->dataType = value->dataType;
+    outValue->data = dtohl(value->data);
+
+    // The reference may be pointing to a resource in a shared library. These
+    // references have build-time generated package IDs. These ids may not match
+    // the actual package IDs of the corresponding packages in this ResTable.
+    // We need to fix the package ID based on a mapping.
+    if (grp->dynamicRefTable.lookupResourceValue(outValue) != NO_ERROR) {
+        ALOGW("Failed to resolve referenced package: 0x%08x", outValue->data);
+        return BAD_VALUE;
+    }
+
+    if (kDebugTableNoisy) {
+        size_t len;
+        printf("Found value: pkg=%zu, type=%d, str=%s, int=%d\n",
+                entry.package->header->index,
+                outValue->dataType,
+                outValue->dataType == Res_value::TYPE_STRING ?
+                    String8(entry.package->header->values.stringAt(outValue->data, &len)).string() :
+                    "",
+                outValue->data);
+    }
+
+    if (outSpecFlags != NULL) {
+        *outSpecFlags = entry.specFlags;
+    }
+
+    if (outConfig != NULL) {
+        *outConfig = entry.config;
+    }
+
+    return entry.package->header->index;
+}
+```
+
+**11. ResTable.getEntry()**
+
+```Java
+status_t ResTable::getEntry(
+        const PackageGroup* packageGroup, int typeIndex, int entryIndex,
+        const ResTable_config* config,
+        Entry* outEntry) const
+{
+    const TypeList& typeList = packageGroup->types[typeIndex];
+    if (typeList.isEmpty()) {
+        ALOGV("Skipping entry type index 0x%02x because type is NULL!\n", typeIndex);
+        return BAD_TYPE;
+    }
+
+    const ResTable_type* bestType = NULL;
+    uint32_t bestOffset = ResTable_type::NO_ENTRY;
+    const Package* bestPackage = NULL;
+    uint32_t specFlags = 0;
+    uint8_t actualTypeIndex = typeIndex;
+    //
+    ResTable_config bestConfig;
+    memset(&bestConfig, 0, sizeof(bestConfig));
+
+    // Iterate over the Types of each package.
+    const size_t typeCount = typeList.size();
+    for (size_t i = 0; i < typeCount; i++) {
+        const Type* const typeSpec = typeList[i];
+
+        int realEntryIndex = entryIndex;
+        int realTypeIndex = typeIndex;
+        bool currentTypeIsOverlay = false;
+
+        // Runtime overlay packages provide a mapping of app resource
+        // ID to package resource ID.
+        if (typeSpec->idmapEntries.hasEntries()) {
+            uint16_t overlayEntryIndex;
+            if (typeSpec->idmapEntries.lookup(entryIndex, &overlayEntryIndex) != NO_ERROR) {
+                // No such mapping exists
+                continue;
+            }
+            realEntryIndex = overlayEntryIndex;
+            realTypeIndex = typeSpec->idmapEntries.overlayTypeId() - 1;
+            currentTypeIsOverlay = true;
+        }
+
+        // Check that the entry idx is within range of the declared entry count (ResTable_typeSpec).
+        // Particular types (ResTable_type) may be encoded with sparse entries, and so their
+        // entryCount do not need to match.
+        if (static_cast<size_t>(realEntryIndex) >= typeSpec->entryCount) {
+            ALOGW("For resource 0x%08x, entry index(%d) is beyond type entryCount(%d)",
+                    Res_MAKEID(packageGroup->id - 1, typeIndex, entryIndex),
+                    entryIndex, static_cast<int>(typeSpec->entryCount));
+            // We should normally abort here, but some legacy apps declare
+            // resources in the 'android' package (old bug in AAPT).
+            continue;
+        }
+
+        // Aggregate all the flags for each package that defines this entry.
+        if (typeSpec->typeSpecFlags != NULL) {
+            specFlags |= dtohl(typeSpec->typeSpecFlags[realEntryIndex]);
+        } else {
+            specFlags = -1;
+        }
+
+        const Vector<const ResTable_type*>* candidateConfigs = &typeSpec->configs;
+
+        std::shared_ptr<Vector<const ResTable_type*>> filteredConfigs;
+        if (config && memcmp(&mParams, config, sizeof(mParams)) == 0) {
+            // Grab the lock first so we can safely get the current filtered list.
+            AutoMutex _lock(mFilteredConfigLock);
+
+            // This configuration is equal to the one we have previously cached for,
+            // so use the filtered configs.
+
+            const TypeCacheEntry& cacheEntry = packageGroup->typeCacheEntries[typeIndex];
+            if (i < cacheEntry.filteredConfigs.size()) {
+                if (cacheEntry.filteredConfigs[i]) {
+                    // Grab a reference to the shared_ptr so it doesn't get destroyed while
+                    // going through this list.
+                    filteredConfigs = cacheEntry.filteredConfigs[i];
+
+                    // Use this filtered list.
+                    candidateConfigs = filteredConfigs.get();
+                }
+            }
+        }
+
+        const size_t numConfigs = candidateConfigs->size();
+        for (size_t c = 0; c < numConfigs; c++) {
+            const ResTable_type* const thisType = candidateConfigs->itemAt(c);
+            if (thisType == NULL) {
+                continue;
+            }
+
+            ResTable_config thisConfig;
+            thisConfig.copyFromDtoH(thisType->config);
+
+            // Check to make sure this one is valid for the current parameters.
+            if (config != NULL && !thisConfig.match(*config)) {
+                continue;
+            }
+
+            const uint32_t* const eindex = reinterpret_cast<const uint32_t*>(
+                    reinterpret_cast<const uint8_t*>(thisType) + dtohs(thisType->header.headerSize));
+
+            uint32_t thisOffset;
+
+            // Check if there is the desired entry in this type.
+            if (thisType->flags & ResTable_type::FLAG_SPARSE) {
+                // This is encoded as a sparse map, so perform a binary search.
+                const ResTable_sparseTypeEntry* sparseIndices =
+                        reinterpret_cast<const ResTable_sparseTypeEntry*>(eindex);
+                const ResTable_sparseTypeEntry* result = std::lower_bound(
+                        sparseIndices, sparseIndices + dtohl(thisType->entryCount), realEntryIndex,
+                        keyCompare);
+                if (result == sparseIndices + dtohl(thisType->entryCount)
+                        || dtohs(result->idx) != realEntryIndex) {
+                    // No entry found.
+                    continue;
+                }
+
+                // Extract the offset from the entry. Each offset must be a multiple of 4
+                // so we store it as the real offset divided by 4.
+                thisOffset = dtohs(result->offset) * 4u;
+            } else {
+                if (static_cast<uint32_t>(realEntryIndex) >= dtohl(thisType->entryCount)) {
+                    // Entry does not exist.
+                    continue;
+                }
+
+                thisOffset = dtohl(eindex[realEntryIndex]);
+            }
+
+            if (thisOffset == ResTable_type::NO_ENTRY) {
+                // There is no entry for this index and configuration.
+                continue;
+            }
+
+            if (bestType != NULL) {
+                // Check if this one is less specific than the last found.  If so,
+                // we will skip it.  We check starting with things we most care
+                // about to those we least care about.
+                if (!thisConfig.isBetterThan(bestConfig, config)) {
+                    if (!currentTypeIsOverlay || thisConfig.compare(bestConfig) != 0) {
+                        continue;
+                    }
+                }
+            }
+
+            bestType = thisType;
+            bestOffset = thisOffset;
+            bestConfig = thisConfig;
+            bestPackage = typeSpec->package;
+            actualTypeIndex = realTypeIndex;
+
+            // If no config was specified, any type will do, so skip
+            if (config == NULL) {
+                break;
+            }
+        }
+    }
+
+    if (bestType == NULL) {
+        return BAD_INDEX;
+    }
+
+    bestOffset += dtohl(bestType->entriesStart);
+
+    if (bestOffset > (dtohl(bestType->header.size)-sizeof(ResTable_entry))) {
+        ALOGW("ResTable_entry at 0x%x is beyond type chunk data 0x%x",
+                bestOffset, dtohl(bestType->header.size));
+        return BAD_TYPE;
+    }
+    if ((bestOffset & 0x3) != 0) {
+        ALOGW("ResTable_entry at 0x%x is not on an integer boundary", bestOffset);
+        return BAD_TYPE;
+    }
+
+    const ResTable_entry* const entry = reinterpret_cast<const ResTable_entry*>(
+            reinterpret_cast<const uint8_t*>(bestType) + bestOffset);
+    if (dtohs(entry->size) < sizeof(*entry)) {
+        ALOGW("ResTable_entry size 0x%x is too small", dtohs(entry->size));
+        return BAD_TYPE;
+    }
+
+    if (outEntry != NULL) {
+        outEntry->entry = entry;
+        outEntry->config = bestConfig;
+        outEntry->type = bestType;
+        outEntry->specFlags = specFlags;
+        outEntry->package = bestPackage;
+        outEntry->typeStr = StringPoolRef(&bestPackage->typeStrings, actualTypeIndex - bestPackage->typeIdOffset);
+        outEntry->keyStr = StringPoolRef(&bestPackage->keyStrings, dtohl(entry->key.index));
+    }
+    return NO_ERROR;
+}
+```
+
+
+**7. AssetManager.getResourceValue()**
+
+```Java
 
 ```
 
 
+**7. AssetManager.getResourceValue()**
+
+```Java
+
+```
 
 
+**7. AssetManager.getResourceValue()**
 
+```Java
+
+```
+
+
+**7. AssetManager.getResourceValue()**
+
+```Java
+
+```
+
+
+**7. AssetManager.getResourceValue()**
+
+```Java
+
+```
+
+
+**7. AssetManager.getResourceValue()**
+
+```Java
+
+```
+
+
+**7. AssetManager.getResourceValue()**
+
+```Java
+
+```
 
 
 
