@@ -161,22 +161,12 @@ jarsigner -verbose -keystore ~/.android/debug.keystore -storepass android -keypa
 ```xml
 //安装
 > adb install compileDir/source-signed.apk 
-
-> 
 ```
 
 
-6、优化apk
+优化apk
 
 zipalign -v 4 compileDir/source-signed.apk compileDir/source-signed-align.apk
-
-7、apk签名验证
-
-
-
-https://blog.csdn.net/zhuoxiuwu/article/details/100518186
-
-https://blog.csdn.net/fdd11119/article/details/51543571?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param
 
 
 
