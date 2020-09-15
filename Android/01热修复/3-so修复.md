@@ -22,3 +22,18 @@ public String findLibrary(String libraryName) {
         return null;
     }
 看到这里我们就知道如何去做了吧，就像 dex 插桩一样的方法，将 so 的路径插入到 nativeLibraryPathElements 之前即可。
+
+# 怎么更新 so 文件？
+
+在 Android 项目中使用 native 函数前需要先调用 System.loadLibrary(libName)。
+
+当 lib 文件需要更新或者有 bug 时候怎么办？首先想到的是在代码中把加载 so 文件的代码改成System.load(libFilePath)，让系统加载自己指定的 libFilePath 文件。然而这样的改动需要
+
+在源代码中修改或者使用工具在编译期把 loadLibrary 接口改为 load
+patch 库把 so 文件从 patch 文件中复制到特定目录
+这样在运行期才有可能加载更新后的 so 文件。
+
+通过分析系统加载 so 文件的方式后，我们使用了更简单的处理方法。查找 lib 文件是通过调用 PathClassLoader 的 findLibrary，最终调用到 DexPathList 的 findLibrary。DexPathList 会在自己维护的列表目录中查找对应的 lib 文件是否存在。所以我们在发现 patch 文件中有 so 文件变更的时候，会在 PathClassLoader 的 nativeLibraryDirectories（Android6.0以下）或者nativeLibraryPathElements （Android 6.0及以上）的最前面插入自定义的lib文件目录。这样 ClassLoader 在 findLibrary 的时候会先在自定义的 lib 目录中查找，优先加载变更过的 so 文件。
+
+
+
