@@ -111,7 +111,7 @@ public @Nullable Resources createBaseActivityResources(...) {
 private @Nullable Resources getOrCreateResources(IBinder activityToken, ResourcesKey key,ClassLoader classLoader) {
     synchronized (this) {//...
         if (activityToken != null) {
-            //...从ArrayMap中根据key查找ResourcesImpl
+            //...从ArrayMap中根据key查找ResourcesImpl，通常情况下一个进程只有一个ResourcesImpl对象
             ResourcesImpl resourcesImpl = findResourcesImplForKeyLocked(key);
             if (resourcesImpl != null) {
               //如果找到了就使用该ResourcesImpl对象包裹上Resources返回
@@ -172,7 +172,7 @@ private @Nullable ResourcesImpl createResourcesImpl(@NonNull ResourcesKey key) {
     //★new一个AssetManager对象，构造方法中调用了init()C++方法
     AssetManager assets = new AssetManager();
     if (key.mResDir != null) {
-        //★调用addAssetPath()方法添加资源路径
+        //★调用addAssetPath()方法添加安装包apk资源路径
         if (assets.addAssetPath(key.mResDir) == 0) {
             return null;
         }
