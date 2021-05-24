@@ -1,3 +1,5 @@
+> 版权声明：本文为openXu原创文章[【openXu的博客】](http://blog.csdn.net/xmxkf)，未经博主允许不得以任何形式转载
+
 # 1. HTTPS 
 
 Android9.0开始强制使用https请求，不仅如此，各大巨头公司都自己的操作系统、浏览器等产品中强制要求使用https。对于开发者来说，可能查看一些文档就能做适配，有很多人并没有真正了解https的原理，包括我自己在之前也没想那么多，只知道它是对数据加密后进行网络传输的，这篇文章使用通俗的语言以及实操示例来一起深入理解https的工作流程。
@@ -94,7 +96,7 @@ HTTPS在传输数据之前需要浏览器网站之间进行一次握手，以确
 
 首先应该创建一个web项目，这里使用的是`SpringBoot`，通过`IntelliJ IDEA`创建一个maven工程，工程结构如下：
 
-![](01-01-webproject.png)
+![](pic/01-01-webproject.png)
 ```xml
 HttpsTest
 	|-src
@@ -612,11 +614,11 @@ ERR_BAD_SSL_CLIENT_AUTH_CERT
 
 这个过程就相当于安装银行卡U盾中的证书，我们刚刚为客户端生成了一个密钥库文件`openxu_client.p12`，找到该文件后直接双击运行安装，下一步、下一步、输入密钥库口令123456、下一步、下一步、完成
 
-![](01-02-installcert.png)
+![](pic/01-02-installcert.png)
 
 安装完证书后，再次访问`https://192.168.1.129:8081/user/get`，会出现下面对话框，让我们选择一个客户端证书，这个证书列表中就有我们刚刚安装的证书，选择后点击确定就能顺利访问服务器了:
 
-![](01-03-clientcertrequest.png)
+<img src="pic/01-03-clientcertrequest.png" style="zoom:80%;" />
 
 ## 4.3 Android配置客户端证书
 
@@ -702,7 +704,7 @@ private void getUser(){
 
 添加之后请求再次报错`java.io.IOException: Wrong version of key store.`，这是因为android平台不支持`.p12`格式的证书文件，它只支持bks格式，所以我们需要将p12转换成bks。这里需要下载一个工具jar包[portecle-1.11.zip](https://sourceforge.net/projects/portecle/files/)，下载后解压里面包含一个`portecle.jar`，cmd进入解压目录，执行`java -jar portecle.jar`即可运行portecle可视化程序:
 
-![](01-04-portecle.png)
+![](pic/01-04-portecle.png)
 
 打开密钥库：菜单File-->Open Keystore File -->选择要转换的openxu_client.p12-->输入密钥口令123456 --> 
 
