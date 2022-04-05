@@ -754,10 +754,11 @@ public final class SuspendKt {
 		                val completion = completion!! 
 		                val outcome: Result<Any?> =
 		                        try {
-		                            //★★★调用invokeSuspend()，执行续体下一个状态码对应的代码（协程恢复执行）
+		                            //★★★调用invokeSuspend()，执行续体下一个状态码对应的代码（协程恢复执行）,协程代码块被分割为n+1个部分就是不停的调用invokeSuspend()来执行的，直到所有代码执行完毕将执行结果封装到Result中交给协程做善后工作（重置状态等等）
 		                            val outcome = invokeSuspend(param)
 		                            //如果下一部分代码又调用了挂起函数挂起了协程，直接return，等待挂起函数继续调用续体的resumeWith
 		                            if (outcome === COROUTINE_SUSPENDED) return
+                                  
 		                            /**
 		                             * 否则当前协程的Lambda表达式代码都执行完毕了，invokeSuspend()最终会返回当前协程的返回值
 		                             * 比如示例中只有一个协程，这个协程并没有返回值，所以将返回一个Unit.INSTANCE作为结果，相当于java中的Void
