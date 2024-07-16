@@ -131,7 +131,7 @@ openxu:x:1000:1000:FPC-Node1,,,:/home/openxu:/bin/bash
 - 命令解释器: 指定该用户使用的shell ，默认的是/bin/bash
 
 **2. /etc/shadow   用户密码表**
- 
+
  > 为了增加系统的安全性，用户口令通常用shadow passwords保护。只有root可读。每行包含如下信息： 
 
 ```xml
@@ -147,7 +147,7 @@ openxu:$1$l$tmuhNeOK7cU7xoBExekdj0:18232:0:99999:7:::
 - 不活动时间: 在用户口令过期后到禁用账户的天数
 
 **3. /etc/group   组表**
- 
+
 > 将用户进行分组时Linux对用户进行管理及控制访问权限的一种手段。一个组中可以有多个用户，一个用户可以同时属于多个组。该文件对所有用户可读。
 
 ```xml
@@ -156,7 +156,7 @@ root:x:0:root
 ```
 
 **4. /etc/gshadow   组密码表**
- 
+
 > 该文件用户定义用户组口令，组管理员等信息只有root用户可读
 
 ```xml
@@ -429,5 +429,4 @@ Java(TM) SE Runtime Environment (build 1.8.0_231-b11)
 Java HotSpot(TM) 64-Bit Server VM (build 25.231-b11, mixed mode)
 
 ```
-
 
